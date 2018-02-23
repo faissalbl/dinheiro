@@ -51,7 +51,7 @@ class DespesaAnualDAOTest(GenericTest):
         print(self.getJustifiedSuccessMsg("update"))
 
     def testDelete(self):
-        self.despesaAnualDAO.delete(self.getTestRowFilterModel())
+        self.despesaAnualDAO.delete(self.findTestRow()[0])
         result = self.findTestRow()
         assert len(result) == 0, "there must be 0 DespesaAnual row"
         print(self.getJustifiedSuccessMsg("Delete"))

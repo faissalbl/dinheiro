@@ -17,7 +17,7 @@ class DespesaAnual(Despesa):
     def getPropertyToColumnDict(self):
         d = OrderedDict()
         d['despesa.id'] = 'despesa_id'
-#        d['despesa.month'] = 'month'
+        d['despesa.month'] = 'month'
         d['savedVal'] = 'saved_val'
         return d     
 

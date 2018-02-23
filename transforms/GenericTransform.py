@@ -5,22 +5,21 @@ class GenericTransform:
         cols, rows = result
         numCols = len(cols)
         modelType = self.getModelType()
-        propertyToColumnDict = modelType().getPropertyToColumnDict()
+        columnToPropertyDict = modelType().getColumnToPropertyDict()
         models = []
         for row in rows:
             model = modelType()
             for col in cols:
-                if (col in propertyToColumnDict.keys()):
-                    col = propertyToColumnDict[col]
-                else:
-                    col = None
+                prop = None
+                if (col in columnToPropertyDict.keys()):
+                    prop = columnToPropertyDict[col]
 
-                if (not col):
+                if (not prop):
                     continue
-                print(col)
+
                 val = row[col]
-                setattr(model, col, val)
-            
+                setattr(model, prop, val)
+
             self.buildJoinedModels(model, row)
             models.append(model)
 

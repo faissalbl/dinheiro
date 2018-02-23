@@ -1,6 +1,6 @@
 import sqlite3
 import os
-from functools import reduce
+from operator import attrgetter
 
 absPath = os.path.abspath(__file__)
 dirname, filename = os.path.split(absPath)
@@ -35,25 +35,35 @@ class GenericDAO:
         self.executeUpdate(query, params = params)
 
     def delete(self, model):
-        if (model.getParentModel()):
-            self.delete(model.getParentModel())
         query = self.getQuery(model, 'delete')
         params = self.buildParams(model)
         self.executeUpdate(query, params = params)
+
+        if (model.getParentModel()):
+            self.delete(model.getParentModel())
 
     def buildParams(self, model, insert = False):
         d = self.getPropertyToColumnDict(model)
         params = {}
         for prop, col in d.items():
-            propVal = reduce(getattr, prop.split('.'), model)
-
             # id is ignored on insert, because it's autoincremented
-            if (insert and propVal == 'id'):
+            if (insert and (prop == 'id' or not self.isInModel(model, prop))):
                 continue
 
+            propVal = attrgetter(prop)(model)
             params[col] = propVal
 
         return params
+
+    def isInModel(self, model, prop):
+        result = True
+        try:
+            attrgetter(prop)(model)
+        except AttributeError:
+            result = False
+
+        return result
+
 
     def getPropertyToColumnDict(self, model):
         d = model.getPropertyToColumnDict()
