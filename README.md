@@ -1,2 +1,2 @@
-# dinheiro
-Manage income and expenses
+# dinheiro - python
+Manage income and expenses. Command line.
