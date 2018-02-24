@@ -1,8 +1,8 @@
 from transforms.DespesaChildTransf import DespesaChildTransf
 from models.Despesa import Despesa
-from models.DespesaAnual import DespesaAnual
+from models.DespesaTemp import DespesaTemp
 
-class DespesaAnualTransf(DespesaChildTransf):
+class DespesaTempTransf(DespesaChildTransf):
     
     def getModelType(self):
-        return DespesaAnual
+        return DespesaTemp
