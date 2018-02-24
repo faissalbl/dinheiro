@@ -1,4 +1,3 @@
-from models.GenericModel import GenericModel
 from models.Despesa import Despesa
 from collections import OrderedDict
 
@@ -11,7 +10,7 @@ class DespesaTemp(Despesa):
     def __init__(self, despesa = None, months = None, paidMonths = None):
         self.despesa = despesa
         self.months = months
-        self.paiMonths = paidMonths
+        self.paidMonths = paidMonths
 
     def __str__(self):
         return "[despesa: {}, months: {}, paidMonths: {}]".format(

@@ -1,4 +1,3 @@
-from models.GenericModel import GenericModel
 from models.Despesa import Despesa
 from collections import OrderedDict
 
