@@ -1,7 +1,7 @@
-from models.Despesa import Despesa
+from models.GenericModel import GenericModel
 from collections import OrderedDict
 
-class DespesaAnual(Despesa):
+class DespesaAnual(GenericModel):
     
     despesa = None
     savedVal = None

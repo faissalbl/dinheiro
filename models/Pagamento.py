@@ -2,7 +2,7 @@ from models.GenericModel import GenericModel
 from models.DespesaTemp import DespesaTemp
 from collections import OrderedDict
 
-class DespesaTemp(Despesa):
+class Pagamento(GenericModel):
     
     despesaTemp = None
     val = None
@@ -16,12 +16,13 @@ class DespesaTemp(Despesa):
         self.month = month
 
     def __str__(self):
-        return "[despesa: {}, val: {}, paid: {}, month: {}]".format(
-            self.despesa, self.val, self.paid, self.month
+        return "[despesaTemp: {}, val: {}, paid: {}, month: {}]".format(
+            self.despesaTemp, self.val, self.paid, self.month)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
-        d['despesa.id'] = 'despesa_id'
+        d['despesaTemp.despesa.id'] = 'despesa_id'
+        d['despesaTemp.despesa.month'] = 'despesa_month'
         d['val'] = 'val'
         d['paid'] = 'paid'
         d['month'] = 'month'

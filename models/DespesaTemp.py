@@ -1,16 +1,25 @@
-from models.Despesa import Despesa
+from models.GenericModel import GenericModel
 from collections import OrderedDict
 
-class DespesaTemp(Despesa):
+class DespesaTemp(GenericModel):
     
     despesa = None
     months = None
     paidMonths = None
+    pagamentos = []
 
     def __init__(self, despesa = None, months = None, paidMonths = None):
         self.despesa = despesa
         self.months = months
         self.paidMonths = paidMonths
+
+    def getPagamentoMonth(self):
+        result = None
+        if self.despesa and self.despesa.month:
+            for pagamento in pagamentos:
+                if pagamento.month == self.despesa.month:
+                    result = pagamento
+        return result
 
     def __str__(self):
         return "[despesa: {}, months: {}, paidMonths: {}]".format(
