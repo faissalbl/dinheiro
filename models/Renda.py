@@ -3,9 +3,6 @@ from models.TipoRenda import TipoRenda
 from collections import OrderedDict
 
 class Renda(GenericModel):
-    tipoRenda = TipoRenda()
-    val = None
-    month = None
 
     def __init__(self, tipoRenda = None, val = None, month = None):
         self.tipoRenda = tipoRenda

@@ -19,17 +19,11 @@ class GenericDAO:
     # in.
     #----------------------------------------------------------------------------------
     def add(self, model):
-        if (model.getParentModel()):
-            parentId = self.add(model.getParentModel())
-            model.getParentModel().id = parentId
-
         query = self.getQuery(model, 'add')
         params = self.buildParams(model, insert = True)
         return self.executeUpdate(query, params = params)
 
     def update(self, model):
-        if (model.getParentModel()):
-            self.update(model.getParentModel())
         query = self.getQuery(model, 'update')
         params = self.buildParams(model)
         self.executeUpdate(query, params = params)
@@ -38,9 +32,6 @@ class GenericDAO:
         query = self.getQuery(model, 'delete')
         params = self.buildParams(model)
         self.executeUpdate(query, params = params)
-
-        if (model.getParentModel()):
-            self.delete(model.getParentModel())
 
     def buildParams(self, model, insert = False):
         d = self.getPropertyToColumnDict(model)

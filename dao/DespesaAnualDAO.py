@@ -1,9 +1,7 @@
-import os
-from dao.GenericDAO import GenericDAO
+from dao.DespesaChildDAO import DespesaChildDAO
 from transforms.DespesaAnualTransf import DespesaAnualTransf
-from models.Renda import Renda
 
-class DespesaAnualDAO(GenericDAO):
+class DespesaAnualDAO(DespesaChildDAO):
 
     def getTransform(self):
         return DespesaAnualTransf()

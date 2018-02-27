@@ -2,12 +2,6 @@ from models.GenericModel import GenericModel
 from collections import OrderedDict
 
 class Despesa(GenericModel):
-    id = None
-    desc = None
-    val = None
-    paidVal = None
-    paid = None
-    month = None
 
     def __init__(self, id = None, desc = None, val = None, paidVal = None, paid = None, month = None):
         self.id = id

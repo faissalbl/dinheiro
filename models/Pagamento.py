@@ -4,11 +4,6 @@ from collections import OrderedDict
 
 class Pagamento(GenericModel):
     
-    despesaTemp = None
-    val = None
-    paid = None
-    month = None
-
     def __init__(self, despesaTemp = None, val = None, paid = None, month = None):
         self.despesaTemp = despesaTemp
         self.val = val

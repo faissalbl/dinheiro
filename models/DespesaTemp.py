@@ -3,15 +3,11 @@ from collections import OrderedDict
 
 class DespesaTemp(GenericModel):
     
-    despesa = None
-    months = None
-    paidMonths = None
-    pagamentos = []
-
     def __init__(self, despesa = None, months = None, paidMonths = None):
         self.despesa = despesa
         self.months = months
         self.paidMonths = paidMonths
+        self.pagamentos = []
 
     def getPagamentoMonth(self):
         result = None
@@ -32,6 +28,3 @@ class DespesaTemp(GenericModel):
         d['months'] = 'months'
         d['paidMonths'] = 'paid_months'
         return d     
-
-    def getParentModel(self):
-        return self.despesa

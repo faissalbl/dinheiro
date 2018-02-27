@@ -2,8 +2,6 @@ from models.GenericModel import GenericModel
 from collections import OrderedDict
 
 class TipoRenda(GenericModel):
-    id = None
-    desc = None
 
     def __init__(self, id = None, desc = None):
         self.id = id

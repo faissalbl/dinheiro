@@ -30,13 +30,3 @@ class GenericModel:
         modName = 'models.queries.' + modName
         queryModule = importlib.import_module(modName)
         return queryModule
-
-    #------------------------------------------------------------------------
-    # Gets the parent model. GenericDAO will use this to execute CRUD on the 
-    # parent model accordinly: inserts, updates and deletes.
-    # Example: when you insert a Despesa Anual, a Despesa must inserted first; 
-    # When a Despesa Anual is delete, its corresponding Despesa must be deleted 
-    # following.
-    #------------------------------------------------------------------------
-    def getParentModel(self):
-        return None

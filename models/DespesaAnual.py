@@ -3,9 +3,6 @@ from collections import OrderedDict
 
 class DespesaAnual(GenericModel):
     
-    despesa = None
-    savedVal = None
-
     def __init__(self, despesa = None, savedVal = None):
         self.despesa = despesa
         self.savedVal = savedVal
@@ -19,6 +16,3 @@ class DespesaAnual(GenericModel):
         d['despesa.month'] = 'month'
         d['savedVal'] = 'saved_val'
         return d     
-
-    def getParentModel(self):
-        return self.despesa
