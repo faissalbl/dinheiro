@@ -9,6 +9,6 @@ class PagamentoTransf(GenericTransform):
         return Pagamento
 
     def buildJoinedModels(self, model, row):
-        despesa = Despesa(id = row['id'], month = row['month'])
+        despesa = Despesa(id = row['id'], month = row['despesa_month'])
         despesaTemp = DespesaTemp(despesa = despesa)
         model.despesaTemp = despesaTemp

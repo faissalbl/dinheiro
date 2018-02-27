@@ -1,6 +1,6 @@
 queries = {
 	'find' : '''
-		select d.id, d.month, p.val, p.paid, p.month
+		select d.id, d.month despesa_month, p.val, p.paid, p.month
 		from DESPESA_TEMP dt
         join DESPESA d
             on d.id = dt.despesa_id
@@ -18,7 +18,8 @@ queries = {
         update PAGAMENTO
         set val = :val,
             paid = :paid
-        where despesa_id = :despesa_id;
+        where despesa_id = :despesa_id
+        and month = :month;
     ''',
     'delete' : '''
         delete from PAGAMENTO

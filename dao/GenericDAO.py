@@ -11,7 +11,6 @@ class GenericDAO:
     def find(self, model):
         query = self.getQuery(model, 'find')
         params = self.buildParams(model)
-        print('params: ' + str(params))
         result = self.executeQuery(query, params = params)
         return result
 
@@ -120,7 +119,6 @@ class GenericDAO:
     def executeUpdate(self, query, params = None):
         con, cur = self.connect()    
         params = self.formatParams(params)
-        print(params)
         cur.execute(query, params)
         con.commit()
         return cur.lastrowid
