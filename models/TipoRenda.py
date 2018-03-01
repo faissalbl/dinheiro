@@ -8,7 +8,7 @@ class TipoRenda(GenericModel):
         self.desc = desc
 
     def __str__(self):
-        return "[id: {}, desc: {}]".format(self.id, self.desc)
+        return "TipoRenda [id: {}, desc: {}]".format(self.id, self.desc)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()

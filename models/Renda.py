@@ -10,7 +10,7 @@ class Renda(GenericModel):
         self.month = month
 
     def __str__(self):
-        return "[tipoRendaId: {}, val: {}, month: {}]".format(self.tipoRenda.id if self.tipoRenda else '', self.val, self.month)
+        return "Renda [tipoRendaId: {}, val: {}, month: {}]".format(self.tipoRenda.id if self.tipoRenda else '', self.val, self.month)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()

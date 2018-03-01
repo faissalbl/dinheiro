@@ -11,7 +11,7 @@ class Pagamento(GenericModel):
         self.month = month
 
     def __str__(self):
-        return "[despesaTemp: {}, val: {}, paid: {}, month: {}]".format(
+        return "Pagamento [despesaTemp: {}, val: {}, paid: {}, month: {}]".format(
             self.despesaTemp, self.val, self.paid, self.month)
 
     def getPropertyToColumnDict(self):

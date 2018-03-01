@@ -18,7 +18,7 @@ class DespesaTemp(GenericModel):
         return result
 
     def __str__(self):
-        return "[despesa: {}, months: {}, paidMonths: {}]".format(
+        return "DespesaTemp [despesa: {}, months: {}, paidMonths: {}]".format(
             self.despesa, self.months, self.paidMonths)
 
     def getPropertyToColumnDict(self):

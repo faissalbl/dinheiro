@@ -1,18 +1,16 @@
 from models.GenericModel import GenericModel
 from collections import OrderedDict
 
-class DespesaAnual(GenericModel):
+class DespesaMensal(GenericModel):
     
-    def __init__(self, despesa = None, savedVal = None):
+    def __init__(self, despesa = None):
         self.despesa = despesa
-        self.savedVal = savedVal
 
     def __str__(self):
-        return "DespesaAnual [despesa: {}, savedVal: {}]".format(self.despesa, self.savedVal)
+        return "DespesaMensal [despesa: {}]".format(self.despesa)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
         d['despesa.id'] = 'despesa_id'
         d['despesa.month'] = 'month'
-        d['savedVal'] = 'saved_val'
         return d     

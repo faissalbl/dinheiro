@@ -12,7 +12,7 @@ class Despesa(GenericModel):
         self.month = month
 
     def __str__(self):
-        return "[id: {}, desc: {}, val: {}, paidVal: {}, paid: {}, month: {}]".format(
+        return "Despesa [id: {}, desc: {}, val: {}, paidVal: {}, paid: {}, month: {}]".format(
             self.id, self.desc, self.val, self.paidVal, self.paid, self.month
         )
 
