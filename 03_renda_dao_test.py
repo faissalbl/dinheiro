@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from test.RendaDAOTest import RendaDAOTest 
+from test.dao.RendaDAOTest import RendaDAOTest 
 
 print("\nTesting RendaDAO\n")
 

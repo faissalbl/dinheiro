@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from test.DespesaAnualDAOTest import DespesaAnualDAOTest 
+from test.dao.DespesaAnualDAOTest import DespesaAnualDAOTest 
 
 print("\nTesting DespesaAnualDAO\n")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from test.TipoRendaDAOTest import TipoRendaDAOTest 
+from test.dao.TipoRendaDAOTest import TipoRendaDAOTest 
 
 print("\nTesting TipoRendaDAO\n")
 

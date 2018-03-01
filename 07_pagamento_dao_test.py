@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from test.PagamentoDAOTest import PagamentoDAOTest 
+from test.dao.PagamentoDAOTest import PagamentoDAOTest 
 
 print("\nTesting PagamentoDAO\n")
 
