@@ -35,6 +35,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Test complete. All passed \o/ \o/ \o/"
+./08_generic_processor_test.py
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+echo -e "\nTest complete. All passed \o/ \o/ \o/\n"
 
 exit 0
