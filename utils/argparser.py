@@ -31,6 +31,10 @@ def parseArgs(argv=sys.argv):
         if (result[0]):
             return result
 
+        result = parsePay(argc, argv)
+        if (result[0]):
+            return result
+
         # no valid commands
         usage()
     except ValueError:
@@ -204,6 +208,31 @@ def parseEdit(argc, argv):
 
     return [method_name, param]
 
+def parsePay(argc, argv):
+    method_name = None
+    param = None
+    if (argc > 1 and argv[1] == 'pay'):
+        if (argc > 2):
+            # pay despesa <id> [<value>]
+            if (argv[2] == 'despesa'):
+                method_name = 'pay_desp'
+                if (argc > 3):
+                    # pay despesa anual <id> [<value>]
+                    if (argv[3] == 'anual'):
+                        method_name += '_an'
+                    # pay despesa temp <id> [<value>]
+                    elif (argv[3] == 'temp'):
+                        method_name += '_tmp'
+
+            else:
+                usage()
+        else:
+            usage()
+
+        param = parseMethodParams(method_name, argc, argv)
+
+    return [method_name, param]
+
 def parseMethodParams(method_name, argc, argv):
     method_words = method_name.split('_')
     word_count = len(method_words)
@@ -215,7 +244,7 @@ def parseMethodParams(method_name, argc, argv):
         param[0] = int(param[0])
     else:
         action = method_words[0]
-        if (action in ['rm', 'edit']):
+        if (action in ['rm', 'edit', 'pay']):
             raise ValueError('id cannot be empty')   
 
     return param
