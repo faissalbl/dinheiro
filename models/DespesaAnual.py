@@ -1,11 +1,11 @@
-from models.GenericModel import GenericModel
+from models.DespesaChild import DespesaChild
 from collections import OrderedDict
 
-class DespesaAnual(GenericModel):
+class DespesaAnual(DespesaChild):
     
     def __init__(self, despesa = None, savedVal = None):
-        self.despesa = despesa
-        self.savedVal = savedVal
+        super().__init__(despesa)
+        self.savedVal = float(savedVal) if savedVal != None else None
 
     def __str__(self):
         return "DespesaAnual [despesa: {}, savedVal: {}]".format(self.despesa, self.savedVal)

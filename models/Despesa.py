@@ -3,12 +3,12 @@ from collections import OrderedDict
 
 class Despesa(GenericModel):
 
-    def __init__(self, id = None, desc = None, val = None, paidVal = None, paid = None, month = None):
+    def __init__(self, id = None, desc = None, val = 0, paidVal = 0, paid = 0, month = None):
         self.id = id
         self.desc = desc
-        self.val = val
-        self.paidVal = paidVal
-        self.paid = paid
+        self.val = float(val) if val != None else None
+        self.paidVal = float(paidVal) if paidVal != None else None
+        self.paid = int(paid) if paid != None else None
         self.month = month
 
     def __str__(self):
@@ -24,4 +24,4 @@ class Despesa(GenericModel):
         d['paidVal'] = 'paid_val'
         d['paid'] = 'paid'
         d['month'] = 'month'
-        return d        
+        return d   

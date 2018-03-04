@@ -1,11 +1,8 @@
-from models.GenericModel import GenericModel
+from models.DespesaChild import DespesaChild
 from collections import OrderedDict
 
-class DespesaMensal(GenericModel):
+class DespesaMensal(DespesaChild):
     
-    def __init__(self, despesa = None):
-        self.despesa = despesa
-
     def __str__(self):
         return "DespesaMensal [despesa: {}]".format(self.despesa)
 

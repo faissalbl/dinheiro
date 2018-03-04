@@ -16,3 +16,23 @@ class GenericProcessor:
             raise ValueError('{} is not a valid month format. Valid month formats look like: {}'.format(month, '\'02 2018\', \'02-2018\', \'02/2018\', \'02,2018\'')) 
 
         self.month = date(int(aMonth[1]), int(aMonth[0]), 1)
+
+    def getDAO(self):
+        raise NotImplementedError('subclasses must implement this')
+
+    def getModelType(self):
+        raise NotImplementedError('this has not been implemented')
+
+    def ls(self):
+        model = self.getModelType()()
+        model.setMonth(self.month)
+        return self.getDAO().find(model)
+
+    def add(self, model):
+        model.setMonth(self.month)
+        self.getDAO().add(model)
+
+    def rm(self, model):
+        model.setMonth(self.month)
+        self.getDAO().delete(model)
+

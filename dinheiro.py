@@ -9,27 +9,54 @@ dirpath, filename = os.path.split(abspath)
 sys.path.append(dirpath)
 
 from utils import argparser 
+from models.Despesa import Despesa
+from models.DespesaMensal import DespesaMensal
+from processor.DespesaMensalProcessor import DespesaMensalProcessor
 
-def ls_desp():
-    print('Listing despesas...')
+def ls_desp(params = None):
+    despesas = DespesaMensalProcessor().ls()
+    for d in despesas:
+        print(d)
 
-def ls_desp_an():
+def add_desp(params = None):
+    despesaMensal = DespesaMensal()
+    despesaMensal.despesa.desc = input('Description: ')
+    despesaMensal.despesa.val = input('Value: ')
+    DespesaMensalProcessor().add(despesaMensal)
+
+def rm_desp(params = None):
+    despesaMensal = DespesaMensal(despesa = Despesa(id = params[0]))
+    DespesaMensalProcessor().rm(despesaMensal)
+
+def pay_desp(params = None):
+    id = params[0]
+    paidVal = None
+    if len(params) > 1:
+        paidVal = float(params[1])
+
+    despesaMensal = DespesaMensal(despesa = Despesa(id = id, paidVal = paidVal))
+    DespesaMensalProcessor().pay(despesaMensal)    
+
+def ls_desp_an(params = None):
     print('Listing despesas anuais...')
 
-def ls_desp_tmp():
+def ls_desp_tmp(params = None):
     print('Listing despesas temporarias...')
 
 methods = dict({
-    'ls_desp' : ls_desp,
-    'ls_desp_an' : ls_desp_an,
-    'ls_desp_tmp' : ls_desp_tmp
+    'ls_desp': ls_desp,
+    'add_desp': add_desp,
+    'rm_desp': rm_desp,
+    'pay_desp': pay_desp,
+    'ls_desp_an': ls_desp_an,
+    'ls_desp_tmp': ls_desp_tmp
 })
 
 method_name = None
 param = None
 try:
-    method_name, param = argparser.parseArgs()
-    print("method_name: {}, param: {}".format(method_name, param))
+    method_name, params = argparser.parseArgs()
+#    print("method_name: {}, params: {}".format(method_name, params))
 except Exception as ex:
     print(ex)
 
@@ -40,8 +67,8 @@ if (method_name):
         method = methods[method_name]
 
     if (method):
-        if (param):
-            method(param)
+        if (params):
+            method(params = params)
         else:
             method()
     else:

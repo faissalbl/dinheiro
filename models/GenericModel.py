@@ -4,6 +4,12 @@ import importlib
 class GenericModel:
 
     #------------------------------------------------------
+    # Each model must know how to set the month it belongs to
+    #------------------------------------------------------   
+    def setMonth(self, month):
+        raise NotImplementedError('This has to be implemented by the subclass')
+
+    #------------------------------------------------------
     # Builds a dictionary that translates model properties'
     # names to table column names.
     # THIS MUST RETURN a collections.OrderedDict

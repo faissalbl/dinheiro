@@ -1,12 +1,12 @@
-from models.GenericModel import GenericModel
+from models.DespesaChild import DespesaChild
 from collections import OrderedDict
 
-class DespesaTemp(GenericModel):
+class DespesaTemp(DespesaChild):
     
     def __init__(self, despesa = None, months = None, paidMonths = None):
-        self.despesa = despesa
-        self.months = months
-        self.paidMonths = paidMonths
+        super().__init__(despesa)
+        self.months = int(months) if months != None else None
+        self.paidMonths = int(paidMonths) if paidMonths != None else None
         self.pagamentos = []
 
     def getPagamentoMonth(self):
