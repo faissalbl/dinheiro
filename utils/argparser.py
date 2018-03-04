@@ -49,7 +49,7 @@ def parseMonth(argc, argv):
     method_name = None
     param = None
     if argc > 1 and argv[1] == 'month':
-        method_name = 'month'
+        method_name = 'change_month'
         if argc < 2:
             usage()
 

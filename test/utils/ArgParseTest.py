@@ -32,7 +32,7 @@ class ArgParseTest(GenericTest):
 
     def testMonth(self):
         argv = ['progname', 'month', '06/1983']
-        self.assertArgs(argv, "method_name == 'month' and param[0] == '06/1983'", "expected method_name or argument is wrong.")
+        self.assertArgs(argv, "method_name == 'change_month' and param[0] == '06/1983'", "expected method_name or argument is wrong.")
 
     def testLs(self):
         argv = ['progname', 'ls', 'despesa']

@@ -4,8 +4,8 @@ from dao.DespesaAnualDAO import DespesaAnualDAO
 
 class DespesaAnualProcessor(DespesaChildProcessor):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, mon = None):
+        super().__init__(mon = mon)
         self.despesaAnualDAO = DespesaAnualDAO()
     
     def getDAO(self):

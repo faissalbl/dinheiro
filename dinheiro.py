@@ -16,9 +16,17 @@ from models.DespesaTemp import DespesaTemp
 from processor.DespesaMensalProcessor import DespesaMensalProcessor
 from processor.DespesaAnualProcessor import DespesaAnualProcessor
 from processor.DespesaTempProcessor import DespesaTempProcessor
+from processor.GenericProcessor import GenericProcessor
+
+mon = GenericProcessor().month
+mon = '{}/{}'.format(mon.month, mon.year)
+
+def change_month(params = None):
+    global mon 
+    mon = params[0]
 
 def ls_desp(params = None):
-    despesas = DespesaMensalProcessor().ls()
+    despesas = DespesaMensalProcessor(mon = mon).ls()
     for d in despesas:
         print(d)
 
@@ -26,11 +34,11 @@ def add_desp(params = None):
     despesaMensal = DespesaMensal()
     despesaMensal.despesa.desc = input('Description: ')
     despesaMensal.despesa.val = input('Value: ')
-    DespesaMensalProcessor().add(despesaMensal)
+    DespesaMensalProcessor(mon = mon).add(despesaMensal)
 
 def rm_desp(params = None):
     despesaMensal = DespesaMensal(despesa = Despesa(id = params[0]))
-    DespesaMensalProcessor().rm(despesaMensal)
+    DespesaMensalProcessor(mon = mon).rm(despesaMensal)
 
 def pay_desp(params = None):
     id = params[0]
@@ -39,10 +47,10 @@ def pay_desp(params = None):
         paidVal = float(params[1])
 
     despesaMensal = DespesaMensal(despesa = Despesa(id = id, paidVal = paidVal))
-    DespesaMensalProcessor().pay(despesaMensal)    
+    DespesaMensalProcessor(mon = mon).pay(despesaMensal)    
 
 def ls_desp_an(params = None):
-    despesas = DespesaAnualProcessor().ls()
+    despesas = DespesaAnualProcessor(mon = mon).ls()
     for d in despesas:
         print(d)
 
@@ -50,11 +58,11 @@ def add_desp_an(params = None):
     despesaAnual = DespesaAnual()
     despesaAnual.despesa.desc = input('Description: ')
     despesaAnual.despesa.val = input('Value: ')
-    DespesaAnualProcessor().add(despesaAnual)
+    DespesaAnualProcessor(mon = mon).add(despesaAnual)
 
 def rm_desp_an(params = None):
     despesaAnual = DespesaAnual(despesa = Despesa(id = params[0]))
-    DespesaAnualProcessor().rm(despesaAnual)
+    DespesaAnualProcessor(mon = mon).rm(despesaAnual)
 
 def pay_desp_an(params = None):
     id = params[0]
@@ -64,10 +72,10 @@ def pay_desp_an(params = None):
 
     despesaAnual = DespesaAnual(despesa = Despesa(id = id, paidVal = paidVal))
 
-    DespesaAnualProcessor().pay(despesaAnual)
+    DespesaAnualProcessor(mon = mon).pay(despesaAnual)
 
 def ls_desp_tmp(params = None):
-    despesas = DespesaTempProcessor().ls()
+    despesas = DespesaTempProcessor(mon = mon).ls()
     for d in despesas:
         print(d)
         for p in d.pagamentos:
@@ -77,21 +85,22 @@ def ls_desp_tmp(params = None):
 
 def rm_desp_tmp(params = None):
     despesaTemp = DespesaTemp(despesa = Despesa(id = params[0]))
-    DespesaTempProcessor().rm(despesaTemp)
+    DespesaTempProcessor(mon = mon).rm(despesaTemp)
 
 def pay_desp_tmp(params = None):
     id = params[0]
     despesaTemp = DespesaTemp(despesa = Despesa(id = id))
-    DespesaTempProcessor().pay(despesaTemp)
+    DespesaTempProcessor(mon = mon).pay(despesaTemp)
 
 def add_desp_tmp(params = None):
     despesaTemp = DespesaTemp()
     despesaTemp.despesa.desc = input('Description: ')
     despesaTemp.despesa.val = input('Value: ')
     despesaTemp.months = int(input('Months: '))
-    DespesaTempProcessor().add(despesaTemp)
+    DespesaTempProcessor(mon = mon).add(despesaTemp)
 
 methods = dict({
+    'change_month': change_month,
     'ls_desp': ls_desp,
     'add_desp': add_desp,
     'rm_desp': rm_desp,
@@ -107,7 +116,7 @@ methods = dict({
 })
 
 while True:
-    args = input('dinheiro> ')
+    args = input('dinheiro - month: {}> '.format(mon))
     if args == 'exit' or args == 'quit':
         sys.exit(0)
 
