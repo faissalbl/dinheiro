@@ -7,10 +7,9 @@ class DespesaChildProcessor(GenericProcessor):
     def pay(self, model):
         id = model.despesa.id
         paidVal = model.despesa.paidVal
+        modelType = self.getModelType()
+        models = self.getDAO().find(modelType(despesa = Despesa(id = id, month = self.month))) 
 
-        print(model)
-
-        models = self.getDAO().find(DespesaMensal(despesa = Despesa(id = id, month = self.month))) 
         if len(models) != 1:
             return
 
