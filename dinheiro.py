@@ -12,8 +12,10 @@ from utils import argparser
 from models.Despesa import Despesa
 from models.DespesaMensal import DespesaMensal
 from models.DespesaAnual import DespesaAnual
+from models.DespesaTemp import DespesaTemp
 from processor.DespesaMensalProcessor import DespesaMensalProcessor
 from processor.DespesaAnualProcessor import DespesaAnualProcessor
+from processor.DespesaTempProcessor import DespesaTempProcessor
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor().ls()
@@ -65,7 +67,29 @@ def pay_desp_an(params = None):
     DespesaAnualProcessor().pay(despesaAnual)
 
 def ls_desp_tmp(params = None):
-    print('Listing despesas temporarias...')
+    despesas = DespesaTempProcessor().ls()
+    for d in despesas:
+        print(d)
+        for p in d.pagamentos:
+            print('    ' + str(p))
+
+        print()
+
+def rm_desp_tmp(params = None):
+    despesaTemp = DespesaTemp(despesa = Despesa(id = params[0]))
+    DespesaTempProcessor().rm(despesaTemp)
+
+def pay_desp_tmp(params = None):
+    id = params[0]
+    despesaTemp = DespesaTemp(despesa = Despesa(id = id))
+    DespesaTempProcessor().pay(despesaTemp)
+
+def add_desp_tmp(params = None):
+    despesaTemp = DespesaTemp()
+    despesaTemp.despesa.desc = input('Description: ')
+    despesaTemp.despesa.val = input('Value: ')
+    despesaTemp.months = int(input('Months: '))
+    DespesaTempProcessor().add(despesaTemp)
 
 methods = dict({
     'ls_desp': ls_desp,
@@ -76,7 +100,10 @@ methods = dict({
     'add_desp_an': add_desp_an,
     'rm_desp_an': rm_desp_an,
     'pay_desp_an': pay_desp_an,
-    'ls_desp_tmp': ls_desp_tmp
+    'ls_desp_tmp': ls_desp_tmp,
+    'add_desp_tmp': add_desp_tmp,
+    'rm_desp_tmp': rm_desp_tmp,
+    'pay_desp_tmp': pay_desp_tmp
 })
 
 method_name = None

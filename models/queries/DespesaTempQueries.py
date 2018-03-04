@@ -5,7 +5,12 @@ queries = {
 		from DESPESA_TEMP dt
         join DESPESA d
             on d.id = dt.despesa_id
-        where d.month = :month
+        where exists (
+            select p.despesa_id
+            from PAGAMENTO p
+            where p.despesa_id = dt.despesa_id
+            and p.month = :month
+        )
         and (:despesa_id is null or dt.despesa_id = :despesa_id);
 	''',
     'add' : '''
