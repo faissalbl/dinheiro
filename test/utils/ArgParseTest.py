@@ -4,6 +4,7 @@ from utils import argparser
 class ArgParseTest(GenericTest):
 
     def test(self):
+        self.testMonth()
         self.testLs()
         self.testRm()
         self.testAdd()
@@ -28,6 +29,10 @@ class ArgParseTest(GenericTest):
     def getJustifiedSuccessMsg(self, argv):
         msg = 'Args: {}'.format(argv)
         return super().getJustifiedSuccessMsg(msg)
+
+    def testMonth(self):
+        argv = ['progname', 'month', '06/1983']
+        self.assertArgs(argv, "method_name == 'month' and param[0] == '06/1983'", "expected method_name or argument is wrong.")
 
     def testLs(self):
         argv = ['progname', 'ls', 'despesa']

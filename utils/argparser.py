@@ -11,7 +11,12 @@ def parseArgs(argv=sys.argv):
     argc = len(argv)
 
     try:
-        #ls
+        # month
+        result = parseMonth(argc, argv)
+        if (result[0]):
+            return result
+
+        # ls
         result = parseLs(argc, argv)
         if (result[0]): 
             return result
@@ -39,6 +44,18 @@ def parseArgs(argv=sys.argv):
         usage()
     except ValueError:
         usage()
+
+def parseMonth(argc, argv):
+    method_name = None
+    param = None
+    if argc > 1 and argv[1] == 'month':
+        method_name = 'month'
+        if argc < 2:
+            usage()
+
+        param = [argv[2]]
+
+    return [method_name, param]
 
 def parseLs(argc, argv):
     method_name = None
