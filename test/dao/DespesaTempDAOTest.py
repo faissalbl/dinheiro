@@ -36,7 +36,6 @@ class DespesaTempDAOTest(GenericTest):
         despesaTemp.despesa.val = 1900
         despesaTemp.despesa.paidVal = 600
         despesaTemp.despesa.paid = 0
-        despesaTemp.savedVal = 400
         despesaTemp.months = 6
         despesaTemp.paidMonths = 3
 
@@ -53,12 +52,11 @@ class DespesaTempDAOTest(GenericTest):
     def testFind(self):
         #find test row 1
         result = self.findTestRow1()
-        print (result[0])
         assert len(result) == 1, "there must be 1 DespesaTemp row"
         assert type(result[0]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
         assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
         assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0 and result[0].months == 5 and result[0].paidMonths == 2, "val, paidVal, paid, month, paidMonths must be 1800, 500, 0, 300, 5, 2"
+        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0 and result[0].months == 5 and result[0].paidMonths == 2, "val, paidVal, paid, month, paidMonths must be 1800, 500, 0, 5, 2"
 
         # check pagamentos
         pagamentos = result[0].pagamentos
@@ -69,15 +67,14 @@ class DespesaTempDAOTest(GenericTest):
 
         #find test row 2
         result = self.findTestRow2()
-        print (result[0])
-        assert len(result) == 1, "there must be 1 DespesaTemp row"
-        assert type(result[0]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
-        assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
-        assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0 and result[0].months == 6 and result[0].paidMonths == 3, "val, paidVal, paid, month, paidMonths must be 1900, 600, 0, 400, 6, 3"
+        assert len(result) == 2, "there must be 2 DespesaTemp row"
+        assert type(result[1]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
+        assert result[1].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
+        assert result[1].despesa.id, "id must be filled in"
+        assert result[1].despesa.val == 1900 and result[1].despesa.paidVal == 600 and result[1].despesa.paid == 0 and result[1].months == 6 and result[1].paidMonths == 3, "val, paidVal, paid, month, paidMonths must be 1900, 600, 0, 6, 3"
 
         # check pagamentos
-        pagamentos = result[0].pagamentos
+        pagamentos = result[1].pagamentos
         assert len(pagamentos) == 3, "there must be 3 pagamentos. There are {}".format(len(pagamentos))
         assert pagamentos[0].val == 0 and pagamentos[0].paid == 0, "pagamento val and paid must be {} and {}".format(0, 0)
         assert pagamentos[1].val == 1 and pagamentos[1].paid == 0, "pagamento val and paid must be {} and {}".format(1, 0)
@@ -105,7 +102,7 @@ class DespesaTempDAOTest(GenericTest):
         # find and validate updated test row
         result = self.findTestRow1()
         model = result[0]
-        assert model.despesa.val == newVal and model.months == newMonths and model.paidMonths == newPaidMonths, "Val, months, paidMonths should be {}, {}, {}".format(newVal, months, paidMonths)
+        assert model.despesa.val == newVal and model.months == newMonths and model.paidMonths == newPaidMonths, "Val, months, paidMonths should be {}, {}, {}".format(newVal, newMonths, newPaidMonths)
 
         # check pagamentos
         pagamentos = model.pagamentos
@@ -116,15 +113,16 @@ class DespesaTempDAOTest(GenericTest):
 
         # check that data for the test row 2 remains the same
         result = self.findTestRow2()
-        print (result[0])
-        assert len(result) == 1, "there must be 1 DespesaTemp row"
-        assert type(result[0]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
-        assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
-        assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0 and result[0].months == 6 and result[0].paidMonths == 3, "val, paidVal, paid, month, paidMonths must be 1900, 600, 0, 400, 6, 3"
+        model = result[1]
+        print(model.months)
+        assert model.despesa.val == 1900 and model.months == 6 and model.paidMonths == 3, "Val, months, paidMonths should be {}, {}, {}".format(1900, 6, 3)
+
+        assert result[1].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
+        assert result[1].despesa.id, "id must be filled in"
+        assert result[1].despesa.val == 1900 and result[1].despesa.paidVal == 600 and result[1].despesa.paid == 0 and result[1].months == 6 and result[1].paidMonths == 3, "val, paidVal, paid, month, paidMonths must be 1900, 600, 0, 6, 3"
 
         # check pagamentos
-        pagamentos = result[0].pagamentos
+        pagamentos = result[1].pagamentos
         assert len(pagamentos) == 3, "there must be 3 pagamentos"
         assert pagamentos[0].val == 0 and pagamentos[0].paid == 0, "pagamento val and paid must be {} and {}".format(0, 0)
         assert pagamentos[1].val == 1 and pagamentos[1].paid == 0, "pagamento val and paid must be {} and {}".format(1, 0)

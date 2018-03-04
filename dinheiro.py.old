@@ -106,36 +106,26 @@ methods = dict({
     'pay_desp_tmp': pay_desp_tmp
 })
 
-while True:
-    args = input('dinheiro> ')
-    if args == 'exit' or args == 'quit':
-        sys.exit(0)
+method_name = None
+param = None
+try:
+    method_name, params = argparser.parseArgs()
+#    print("method_name: {}, params: {}".format(method_name, params))
+except Exception as ex:
+    print(ex)
 
-    args = args.split()
+if (method_name):
+    method = None
 
-    # insert dummy because the argparser expects the first arg to be the program name
-    args.insert(0, 'dummy')
+    if (method_name in methods.keys()):
+        method = methods[method_name]
 
-    method_name = None
-    param = None
-    try:
-        method_name, params = argparser.parseArgs(argv = args)
-    #    print("method_name: {}, params: {}".format(method_name, params))
-    except Exception as ex:
-        print(ex)
-
-    if (method_name):
-        method = None
-
-        if (method_name in methods.keys()):
-            method = methods[method_name]
-
-        if (method):
-            if (params):
-                method(params = params)
-            else:
-                method()
+    if (method):
+        if (params):
+            method(params = params)
         else:
-            print ("implement {}".format(method_name))
+            method()
+    else:
+        print ("implement {}".format(method_name))
 
 sys.exit(0)

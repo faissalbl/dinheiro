@@ -5,13 +5,18 @@ queries = {
 		from DESPESA_TEMP dt
         join DESPESA d
             on d.id = dt.despesa_id
-        where exists (
-            select p.despesa_id
-            from PAGAMENTO p
-            where p.despesa_id = dt.despesa_id
-            and p.month = :month
+        where ( 
+            exists (
+                select p.despesa_id
+                from PAGAMENTO p
+                where p.despesa_id = dt.despesa_id
+                and p.month = :month
+            )
+            or d.month = :month
         )
-        and (:despesa_id is null or dt.despesa_id = :despesa_id);
+        and (:despesa_id is null or dt.despesa_id = :despesa_id)
+        order by d.month
+        ;
 	''',
     'add' : '''
         insert or replace into DESPESA_TEMP (despesa_id, months, paid_months)

@@ -29,6 +29,7 @@ class PagamentoDAOTest(GenericTest):
 
         self.despesaTempDAO.add(despesaTemp)
 
+        print(self.findDespesaTemp1())
         despesaTemp = self.findDespesaTemp1()[0]
 
         self.createAndAddPagamentos(despesaTemp)
@@ -44,7 +45,7 @@ class PagamentoDAOTest(GenericTest):
 
         self.despesaTempDAO.add(despesaTemp)
 
-        despesaTemp = self.findDespesaTemp2()[0]
+        despesaTemp = self.findDespesaTemp2()[1]
 
         self.createAndAddPagamentos(despesaTemp)
 
@@ -77,10 +78,10 @@ class PagamentoDAOTest(GenericTest):
 
         #find test row 2
         result = self.findDespesaTemp2()
-        assert len(result) == 1, "there must be 1 DespesaTemp row"
-        assert type(result[0]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
+        assert len(result) == 2, "there must be 1 DespesaTemp row"
+        assert type(result[1]).__name__ == 'DespesaTemp', "Result type must be DespesaTemp"
 
-        despesaTemp = result[0]
+        despesaTemp = result[1]
         print('despesaTemp id: ' + str(despesaTemp.despesa.id))
         pagamentos = self.pagamentoDAO.find(Pagamento(despesaTemp = despesaTemp))
         assert len(pagamentos) == 3, "there must be 3 Pagamentos. There are {}.".format(len(pagamentos))
@@ -115,7 +116,7 @@ class PagamentoDAOTest(GenericTest):
         assert pagamentos[2].val == 2 and pagamentos[2].paid == 0, "pagamento val and paid must be {} and {}".format(2, 0)
 
         result = self.findDespesaTemp2()
-        despesaTemp = result[0]
+        despesaTemp = result[1]
         pagamentos = self.pagamentoDAO.find(Pagamento(despesaTemp = despesaTemp))
 
         for i in range(3):
