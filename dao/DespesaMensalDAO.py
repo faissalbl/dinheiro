@@ -11,3 +11,7 @@ class DespesaMensalDAO(DespesaChildDAO):
 
     def getTransform(self):
         return DespesaMensalTransf()
+
+    def copyDespesasToMonth(self, model, month):
+        query = self.getQuery(model, 'copy')
+        self.executeUpdate(query, params = {'month': month})

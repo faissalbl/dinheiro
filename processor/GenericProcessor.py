@@ -3,11 +3,11 @@ import re
 
 class GenericProcessor:
 
-    def __init__(self, mon = None):
-        if mon == None:
+    def __init__(self, month = None):
+        if month == None:
             self.month = self.getCurrentMonth()
         else:
-            self.changeMonth(mon)
+            self.changeMonth(month)
 
     def getCurrentMonth(self):
         today = date.today()

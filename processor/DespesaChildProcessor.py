@@ -26,3 +26,11 @@ class DespesaChildProcessor(GenericProcessor):
             model.despesa.paidVal = model.despesa.val
 
         self.getDAO().update(model)
+
+    def sum(self):
+        modelType = self.getModelType()
+        model = modelType()
+        model.setMonth(self.month)
+        resultModel = self.getDAO().sum(model)[0]
+        return resultModel.despesa.val
+

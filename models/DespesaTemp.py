@@ -9,12 +9,12 @@ class DespesaTemp(DespesaChild):
         self.paidMonths = int(paidMonths) if paidMonths != None else None
         self.pagamentos = []
 
-    def getPagamentoMonth(self):
+    def getPagamento(month):
         result = None
-        if self.despesa and self.despesa.month:
-            for pagamento in pagamentos:
-                if pagamento.month == self.despesa.month:
-                    result = pagamento
+        for pagamento in self.pagamentos:
+            if pagamento.month == month:
+                result = pagamento
+                break
         return result
 
     def __str__(self):

@@ -15,5 +15,17 @@ queries = {
     'delete' : '''
         delete from DESPESA
         where id = :id;
+    ''',
+    'copy' : '''
+        insert into despesa (desc, val, paid_val, paid, month)
+        with cp_month as (
+            select max(month) month
+            from despesa
+            where month < :month
+        )
+        select desc, val, 0 paid_val, 0 paid, :month month 
+        from cp_month
+        join despesa 
+            on despesa.month = cp_month.month;
     '''
 }

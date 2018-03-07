@@ -4,10 +4,13 @@ from dao.DespesaMensalDAO import DespesaMensalDAO
 
 class DespesaMensalProcessor(DespesaChildProcessor):
 
-    def __init__(self, mon = None):
-        super().__init__(mon = mon)
+    def __init__(self, month = None):
+        super().__init__(month = month)
         self.despesaMensalDAO = DespesaMensalDAO()
-    
+
+    def copyDespesasToMonth(self, model, month):
+        self.despesaMensalDAO.copyDespesasToMonth(model, month)
+
     def getDAO(self):
         return self.despesaMensalDAO
 

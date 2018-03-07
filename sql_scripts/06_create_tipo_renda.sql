@@ -1,4 +1,5 @@
 create table TIPO_RENDA (
     id        text  primary key,
-    desc      text
+    desc      text,
+    auto      int not null default 0
 );

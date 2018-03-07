@@ -1,5 +1,5 @@
-insert into tipo_renda (id, desc)
-values ('reserva', 'Reserva Financeira');
+insert into tipo_renda (id, desc, auto)
+values ('reserva', 'Reserva Financeira', 1);
 
 insert into tipo_renda (id, desc)
 values ('week_1', 'Semana 1');

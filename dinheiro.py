@@ -13,20 +13,24 @@ from models.Despesa import Despesa
 from models.DespesaMensal import DespesaMensal
 from models.DespesaAnual import DespesaAnual
 from models.DespesaTemp import DespesaTemp
+from models.Renda import Renda
+from models.TipoRenda import TipoRenda
 from processor.DespesaMensalProcessor import DespesaMensalProcessor
 from processor.DespesaAnualProcessor import DespesaAnualProcessor
 from processor.DespesaTempProcessor import DespesaTempProcessor
 from processor.GenericProcessor import GenericProcessor
+from processor.RendaProcessor import RendaProcessor
+from processor.TipoRendaProcessor import TipoRendaProcessor
 
-mon = GenericProcessor().month
-mon = '{}/{}'.format(mon.month, mon.year)
+month = GenericProcessor().month
+month = '{}/{}'.format(month.month, month.year)
 
 def change_month(params = None):
-    global mon 
-    mon = params[0]
+    global month 
+    month = params[0]
 
 def ls_desp(params = None):
-    despesas = DespesaMensalProcessor(mon = mon).ls()
+    despesas = DespesaMensalProcessor(month = month).ls()
     for d in despesas:
         print(d)
 
@@ -34,11 +38,11 @@ def add_desp(params = None):
     despesaMensal = DespesaMensal()
     despesaMensal.despesa.desc = input('Description: ')
     despesaMensal.despesa.val = input('Value: ')
-    DespesaMensalProcessor(mon = mon).add(despesaMensal)
+    DespesaMensalProcessor(month = month).add(despesaMensal)
 
 def rm_desp(params = None):
     despesaMensal = DespesaMensal(despesa = Despesa(id = params[0]))
-    DespesaMensalProcessor(mon = mon).rm(despesaMensal)
+    DespesaMensalProcessor(month = month).rm(despesaMensal)
 
 def pay_desp(params = None):
     id = params[0]
@@ -47,10 +51,10 @@ def pay_desp(params = None):
         paidVal = float(params[1])
 
     despesaMensal = DespesaMensal(despesa = Despesa(id = id, paidVal = paidVal))
-    DespesaMensalProcessor(mon = mon).pay(despesaMensal)    
+    DespesaMensalProcessor(month = month).pay(despesaMensal)    
 
 def ls_desp_an(params = None):
-    despesas = DespesaAnualProcessor(mon = mon).ls()
+    despesas = DespesaAnualProcessor(month = month).ls()
     for d in despesas:
         print(d)
 
@@ -58,11 +62,11 @@ def add_desp_an(params = None):
     despesaAnual = DespesaAnual()
     despesaAnual.despesa.desc = input('Description: ')
     despesaAnual.despesa.val = input('Value: ')
-    DespesaAnualProcessor(mon = mon).add(despesaAnual)
+    DespesaAnualProcessor(month = month).add(despesaAnual)
 
 def rm_desp_an(params = None):
     despesaAnual = DespesaAnual(despesa = Despesa(id = params[0]))
-    DespesaAnualProcessor(mon = mon).rm(despesaAnual)
+    DespesaAnualProcessor(month = month).rm(despesaAnual)
 
 def pay_desp_an(params = None):
     id = params[0]
@@ -72,10 +76,10 @@ def pay_desp_an(params = None):
 
     despesaAnual = DespesaAnual(despesa = Despesa(id = id, paidVal = paidVal))
 
-    DespesaAnualProcessor(mon = mon).pay(despesaAnual)
+    DespesaAnualProcessor(month = month).pay(despesaAnual)
 
 def ls_desp_tmp(params = None):
-    despesas = DespesaTempProcessor(mon = mon).ls()
+    despesas = DespesaTempProcessor(month = month).ls()
     for d in despesas:
         print(d)
         for p in d.pagamentos:
@@ -85,19 +89,60 @@ def ls_desp_tmp(params = None):
 
 def rm_desp_tmp(params = None):
     despesaTemp = DespesaTemp(despesa = Despesa(id = params[0]))
-    DespesaTempProcessor(mon = mon).rm(despesaTemp)
+    DespesaTempProcessor(month = month).rm(despesaTemp)
 
 def pay_desp_tmp(params = None):
     id = params[0]
     despesaTemp = DespesaTemp(despesa = Despesa(id = id))
-    DespesaTempProcessor(mon = mon).pay(despesaTemp)
+    DespesaTempProcessor(month = month).pay(despesaTemp)
 
 def add_desp_tmp(params = None):
     despesaTemp = DespesaTemp()
     despesaTemp.despesa.desc = input('Description: ')
     despesaTemp.despesa.val = input('Value: ')
     despesaTemp.months = int(input('Months: '))
-    DespesaTempProcessor(mon = mon).add(despesaTemp)
+    DespesaTempProcessor(month = month).add(despesaTemp)
+
+def ls_renda(params = None):
+    rendas = RendaProcessor(month = month).ls()
+    for r in rendas:
+        print(d)
+
+def add_renda(params = None):
+    rendaProcessor = RendaProcessor(month = month)
+    tipoRenda = inputTipoRenda()
+    renda = Renda()
+    if tipoRenda.auto == 1:
+        renda.val = rendaProcessor.calculateRenda()
+    else:
+        renda.val = input('Value: ')
+    rendaProcessor.add(renda)
+
+def inputTipoRenda:
+    tiposRenda = TipoRendaProcessor().ls()
+    # rebuild list without the auto calculated ones
+    tiposRenda = [x for x in tiposRenda if not x.auto]
+    tipoRenda = None
+    while True:
+        print('Tipos Renda: ')
+        nbr = 1
+        for tr in tiposRenda:
+            print('{}) {}'.format(nbr, tr.desc))
+
+        tr_nbr = input('Tipo Renda: ')
+        tr_nbr = tr_nbr - 1
+        if (tr_nbr >= 0 and tr_nbr < len(tiposRenda)):
+            tipoRenda = tiposRenda[tr_nbr]
+            break
+
+        print()
+
+    return tipoRenda
+
+
+def rm_renda(params = None):
+    renda = Renda(tipoRenda = TipoRenda(id = params[0]))
+    RendaProcessor(month = month).rm(renda)
 
 methods = dict({
     'change_month': change_month,
@@ -116,7 +161,7 @@ methods = dict({
 })
 
 while True:
-    args = input('dinheiro - month: {}> '.format(mon))
+    args = input('dinheiro - month: {}> '.format(month))
     if args == 'exit' or args == 'quit':
         sys.exit(0)
 

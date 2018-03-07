@@ -15,5 +15,12 @@ queries = {
     'delete' : '''
         delete from DESPESA_MENSAL
         where despesa_id = :despesa_id;
+    ''',
+    'sum': '''
+        select sum(d.val) val
+        from DESPESA_MENSAL dm
+        join DESPESA d
+            on d.id = dm.despesa_id
+        where d.month = :month;
     '''
 }

@@ -21,5 +21,11 @@ class DespesaChildDAO(GenericDAO):
         super().delete(model)
         super().delete(model.despesa)
 
+    def sum(self, model):
+        query = self.getQuery(model, 'sum')
+        params = self.buildParams(model)
+        result = self.executeQuery(model, params = params)
+        return result
+
     def getTransform(self):
         return DespesaChildTransf()

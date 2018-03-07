@@ -6,8 +6,8 @@ from dao.DespesaTempDAO import DespesaTempDAO
 
 class DespesaTempProcessor(DespesaChildProcessor):
 
-    def __init__(self, mon = None):
-        super().__init__(mon = mon)
+    def __init__(self, month = None):
+        super().__init__(month = month)
         self.despesaTempDAO = DespesaTempDAO()
     
     def getDAO(self):
