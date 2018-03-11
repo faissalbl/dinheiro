@@ -15,6 +15,7 @@ class Renda(GenericModel):
     def getPropertyToColumnDict(self):
         d = OrderedDict()
         d['tipoRenda.id'] = 'tipo_renda_id'
+        d['tipoRenda.auto'] = 'auto'
         d['val'] = 'val'
         d['month'] = 'month'
         return d        

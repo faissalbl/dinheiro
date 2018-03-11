@@ -39,3 +39,6 @@ class GenericProcessor:
         model.setMonth(self.month)
         self.getDAO().delete(model)
 
+    def edit(self, model):
+        raise NotImplementedError('not implemented')
+

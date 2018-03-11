@@ -1,9 +1,13 @@
 from processor.GenericProcessor import GenericProcessor
+from processor.RendaProcessor import RendaProcessor
 from models.Despesa import Despesa
-from models.DespesaMensal import DespesaMensal
 
 class DespesaChildProcessor(GenericProcessor):
     
+    def __init__(self, month = None):
+        super()._init__(month = month)
+        self.rendaProcessor = RendaProcessor(month = month)
+
     def pay(self, model):
         id = model.despesa.id
         paidVal = model.despesa.paidVal
@@ -34,3 +38,14 @@ class DespesaChildProcessor(GenericProcessor):
         resultModel = self.getDAO().sum(model)[0]
         return resultModel.despesa.val
 
+    def add(self, model):
+        super().add(model)
+        self.rendaProcessor.refreshReserva()
+
+    def rm(self, model):
+        super().rm(model)
+        self.rendaProcessor.refreshReserva()
+
+    def edit(self, model):
+        super().edit(model)
+        self.rendaProcessor.refreshReserva()

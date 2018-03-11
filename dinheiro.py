@@ -110,7 +110,7 @@ def ls_renda(params = None):
 
 def add_renda(params = None):
     rendaProcessor = RendaProcessor(month = month)
-    tipoRenda = inputTipoRenda()
+    tipoRenda = self.inputTipoRenda()
     renda = Renda()
     if tipoRenda.auto == 1:
         renda.val = rendaProcessor.calculateRenda()
@@ -118,7 +118,7 @@ def add_renda(params = None):
         renda.val = input('Value: ')
     rendaProcessor.add(renda)
 
-def inputTipoRenda:
+def inputTipoRenda(self):
     tiposRenda = TipoRendaProcessor().ls()
     # rebuild list without the auto calculated ones
     tiposRenda = [x for x in tiposRenda if not x.auto]
