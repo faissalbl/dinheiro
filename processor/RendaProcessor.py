@@ -1,10 +1,7 @@
 from processor.GenericProcessor import GenericProcessor
-from processor.DespesaAnualProcessor import DespesaAnualProcessor
-from processor.DespesaMensalProcessor import DespesaMensalProcessor
-from processor.DespesaTempProcessor import DespesaTempProcessor
-from processor.TipoRendaDAO import TipoRendaDAO
 from models.Renda import Renda
 from models.TipoRenda import TipoRenda
+from dao.TipoRendaDAO import TipoRendaDAO
 from dao.RendaDAO import RendaDAO
 
 class RendaProcessor(GenericProcessor):
@@ -21,6 +18,9 @@ class RendaProcessor(GenericProcessor):
 
     def calculateReserva(self):
         # sum despesa anual divided by 12.0 (float) months
+        from processor.DespesaAnualProcessor import DespesaAnualProcessor
+        from processor.DespesaMensalProcessor import DespesaMensalProcessor
+        from processor.DespesaTempProcessor import DespesaTempProcessor
         sumDespesaAnual = DespesaAnualProcessor(month = self.month).sum() / 12.0
         sumDespesaMensal = DespesaMensalProcessor(month = self.month).sum()
         sumDespesaTemp = DespesaTempProcessor(month = self.month).sum()
@@ -33,11 +33,14 @@ class RendaProcessor(GenericProcessor):
         tipoRenda = TipoRendaDAO().find(tipoRenda)[0]
         renda = Renda(month = self.month, tipoRenda = tipoRenda)
         result = rendaDAO.find(renda)
+
+        update = False
         if len(result) > 0:
             renda = result[0]
+            update = True
                     
         renda.val = self.calculateReserva()
-        if renda.id:
+        if update:
             self.rendaDAO.update(renda)
         else:
             self.rendaDAO.add(renda)

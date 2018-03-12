@@ -8,4 +8,4 @@ class RendaTransf(GenericTransform):
         return Renda
 
     def buildJoinedModels(self, model, row):
-        model.tipoRenda = TipoRenda(row['id'], row['desc'])
+        model.tipoRenda = TipoRenda(id = row['tipo_renda_id'], desc = row['desc'])

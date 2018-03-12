@@ -86,7 +86,6 @@ class GenericDAO:
         con, cur = self.connect()
 
         params = self.formatParams(params)
-
         cur.execute(query, params)
         
         rows = None

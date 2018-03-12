@@ -106,16 +106,13 @@ def add_desp_tmp(params = None):
 def ls_renda(params = None):
     rendas = RendaProcessor(month = month).ls()
     for r in rendas:
-        print(d)
+        print(r)
 
 def add_renda(params = None):
     rendaProcessor = RendaProcessor(month = month)
     tipoRenda = self.inputTipoRenda()
-    renda = Renda()
-    if tipoRenda.auto == 1:
-        renda.val = rendaProcessor.calculateRenda()
-    else:
-        renda.val = input('Value: ')
+    renda = Renda(tipoRenda = tipoRenda)
+    renda.val = input('Value: ')
     rendaProcessor.add(renda)
 
 def inputTipoRenda(self):
@@ -157,7 +154,9 @@ methods = dict({
     'ls_desp_tmp': ls_desp_tmp,
     'add_desp_tmp': add_desp_tmp,
     'rm_desp_tmp': rm_desp_tmp,
-    'pay_desp_tmp': pay_desp_tmp
+    'pay_desp_tmp': pay_desp_tmp,
+    'ls_renda': ls_renda,
+    'add_renda': add_renda
 })
 
 while True:

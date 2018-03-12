@@ -24,7 +24,7 @@ class DespesaChildDAO(GenericDAO):
     def sum(self, model):
         query = self.getQuery(model, 'sum')
         params = self.buildParams(model)
-        result = self.executeQuery(model, params = params)
+        result = self.executeQuery(query, params = params)
         return result
 
     def getTransform(self):

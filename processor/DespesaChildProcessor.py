@@ -5,7 +5,7 @@ from models.Despesa import Despesa
 class DespesaChildProcessor(GenericProcessor):
     
     def __init__(self, month = None):
-        super()._init__(month = month)
+        super().__init__(month = month)
         self.rendaProcessor = RendaProcessor(month = month)
 
     def pay(self, model):

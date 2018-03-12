@@ -6,6 +6,8 @@ class GenericProcessor:
     def __init__(self, month = None):
         if month == None:
             self.month = self.getCurrentMonth()
+        elif type(month).__name__ == 'date':
+            self.month = month
         else:
             self.changeMonth(month)
 

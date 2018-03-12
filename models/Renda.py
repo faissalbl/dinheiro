@@ -5,7 +5,7 @@ from collections import OrderedDict
 class Renda(GenericModel):
 
     def __init__(self, tipoRenda = None, val = None, month = None):
-        self.tipoRenda = tipoRenda
+        self.tipoRenda = tipoRenda if tipoRenda else TipoRenda()
         self.val = val
         self.month = month
 
@@ -18,4 +18,7 @@ class Renda(GenericModel):
         d['tipoRenda.auto'] = 'auto'
         d['val'] = 'val'
         d['month'] = 'month'
-        return d        
+        return d   
+
+    def setMonth(self, month):
+        self.month = month     
