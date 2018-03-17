@@ -36,7 +36,7 @@ class DespesaChildProcessor(GenericProcessor):
         model = modelType()
         model.setMonth(self.month)
         resultModel = self.getDAO().sum(model)[0]
-        return resultModel.despesa.val
+        return resultModel.despesa.val or 0
 
     def add(self, model):
         super().add(model)

@@ -1,3 +1,4 @@
+from datetime import date
 from models.DespesaChild import DespesaChild
 from collections import OrderedDict
 
@@ -9,6 +10,9 @@ class DespesaAnual(DespesaChild):
 
     def __str__(self):
         return "DespesaAnual [despesa: {}, savedVal: {}]".format(self.despesa, self.savedVal)
+
+    def setMonth(self, month):
+        self.despesa.month = date(month.year, 1, 1)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()

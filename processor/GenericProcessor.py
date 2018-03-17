@@ -44,3 +44,6 @@ class GenericProcessor:
     def edit(self, model):
         raise NotImplementedError('not implemented')
 
+    def copy(self, model, month):
+        self.getDAO().copy(model, month)
+

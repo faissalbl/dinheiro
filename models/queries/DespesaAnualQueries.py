@@ -32,5 +32,19 @@ queries = {
         join year
         where d.month >= year.year||'-01-'||'01'
         and d.month <= year.year||'-12-'||'01';
+    ''',
+    'find_copy': '''
+        with CP_YEAR as (
+            select max(strftime('%Y', month)) year
+            from DESPESA
+            where strftime('%Y', month) < strftime('%Y', :month)
+        )
+        select d.desc, d.val, 0 paid_val, 0 paid, strftime('%Y', :month)||'-01-01' month,
+        da.saved_val 
+        from CP_YEAR
+        join DESPESA d
+            on d.month = cp_year.year||'-01-01'
+        join DESPESA_ANUAL da
+            on da.despesa_id = d.id;
     '''
 }

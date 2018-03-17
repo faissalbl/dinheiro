@@ -22,5 +22,19 @@ queries = {
         join DESPESA d
             on d.id = dm.despesa_id
         where d.month = :month;
+    ''',
+    'find_copy' : '''
+        with CP_MONTH as (
+            select max(month) month
+            from DESPESA
+            where month < :month
+        )
+        select d.desc, d.val, 0 paid_val, 0 paid, :month month 
+        from CP_MONTH
+        join DESPESA d 
+            on despesa.month = cp_month.month
+        join DESPESA_MENSAL dm
+            on dm.despesa_id = d.id;
     '''
+
 }

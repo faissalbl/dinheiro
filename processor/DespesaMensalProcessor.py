@@ -8,9 +8,6 @@ class DespesaMensalProcessor(DespesaChildProcessor):
         super().__init__(month = month)
         self.despesaMensalDAO = DespesaMensalDAO()
 
-    def copyDespesasToMonth(self, model, month):
-        self.despesaMensalDAO.copyDespesasToMonth(model, month)
-
     def getDAO(self):
         return self.despesaMensalDAO
 

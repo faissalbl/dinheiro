@@ -33,6 +33,13 @@ class GenericDAO:
         params = self.buildParams(model)
         self.executeUpdate(query, params = params)
 
+    def copy(self, model, month):
+        query = self.getQuery(model, 'find_copy')
+        result = self.executeQuery(query, params = {'month': month})
+        for model in result:
+            self.add(model)
+
+
     def buildParams(self, model, insert = False):
         d = self.getPropertyToColumnDict(model)
         params = {}
