@@ -22,12 +22,26 @@ from processor.GenericProcessor import GenericProcessor
 from processor.RendaProcessor import RendaProcessor
 from processor.TipoRendaProcessor import TipoRendaProcessor
 
-month = GenericProcessor().month
-month = '{}/{}'.format(month.month, month.year)
-
 def change_month(params = None):
     global month 
     month = params[0]
+
+    despesaMensalProcessor = DespesaMensalProcessor(month = month)
+    rendaProcessor = RendaProcessor(month = month)
+
+    despMensalCount = despesaMensalProcessor.count()
+    rendaCount = rendaProcessor.count()
+
+    totalCount = despMensalCount + rendaCount
+
+    #temp
+    print('totalCount = {}'.format(totalCount))
+
+    if totalCount == 0:
+        print('Copying data from the past months...')
+        despesaMensalProcessor.copy()
+        rendaProcessor.copy()
+        print('...Done')
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor(month = month).ls()
@@ -156,8 +170,13 @@ methods = dict({
     'rm_desp_tmp': rm_desp_tmp,
     'pay_desp_tmp': pay_desp_tmp,
     'ls_renda': ls_renda,
-    'add_renda': add_renda
+    'add_renda': add_renda,
+    'rm_renda': rm_renda
 })
+
+month = GenericProcessor().month
+month = '{}/{}'.format(month.month, month.year)
+change_month(params = [month])
 
 while True:
     args = input('dinheiro - month: {}> '.format(month))

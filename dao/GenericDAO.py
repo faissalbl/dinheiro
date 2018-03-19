@@ -14,6 +14,12 @@ class GenericDAO:
         result = self.executeQuery(query, params = params)
         return result
 
+    def count(self, model):
+        query = self.getQuery(model, 'count')
+        params = self.buildParams(model)
+        result = self.executeQuery(query, params = params, count = True)
+        return result
+
     #----------------------------------------------------------------------------------
     # adds a model. It will not fetch dependent models. All foreign ids must be filled
     # in.
@@ -33,11 +39,12 @@ class GenericDAO:
         params = self.buildParams(model)
         self.executeUpdate(query, params = params)
 
-    def copy(self, model, month):
+    def copy(self, model):
         query = self.getQuery(model, 'find_copy')
-        result = self.executeQuery(query, params = {'month': month})
-        for model in result:
-            self.add(model)
+        params = self.buildParams(model)
+        result = self.executeQuery(query, params = params)
+        for m in result:
+            self.add(m)
 
 
     def buildParams(self, model, insert = False):
@@ -89,11 +96,14 @@ class GenericDAO:
     # then the result (cols, rows) will be converted into a list of specific objects,
     # like TipoRenda
     #----------------------------------------------------------------------------------
-    def executeQuery(self, query, params = None, fetchone = False):
+    def executeQuery(self, query, params = None, fetchone = False, count = False):
         con, cur = self.connect()
 
         params = self.formatParams(params)
         cur.execute(query, params)
+
+        if (count):
+            fetchone = True
         
         rows = None
         if (fetchone):
@@ -101,15 +111,19 @@ class GenericDAO:
         else:
             rows = cur.fetchall()
 
-        cols = []
-        for coldesc in cur.description:
-            cols.append(coldesc[0])
+        if count:
+            result = rows['count']
+        else:
+            cols = []
+            if cur.description:
+                for coldesc in cur.description:
+                    cols.append(coldesc[0])
 
-        result = (tuple(cols), rows)
+            result = (tuple(cols), rows)
 
-        transform = self.getTransform()
-        if (transform):
-            result = transform.transform(result)                   
+            transform = self.getTransform()
+            if (transform):
+                result = transform.transform(result)                   
 
         return result 
 

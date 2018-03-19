@@ -252,15 +252,17 @@ def parsePay(argc, argv):
 
 def parseMethodParams(method_name, argc, argv):
     method_words = method_name.split('_')
+    action = method_words[0]
+    entity = method_words[1]
     word_count = len(method_words)
     param_start_index = word_count + 1
     param = []
     if (argc > param_start_index):
         param = argv[param_start_index:]
         # the first parameter is an id, so should be conversible to an int
-        param[0] = int(param[0])
+        if not (action == 'rm' and entity == 'renda'):
+            param[0] = int(param[0])
     else:
-        action = method_words[0]
         if (action in ['rm', 'edit', 'pay']):
             raise ValueError('id cannot be empty')   
 

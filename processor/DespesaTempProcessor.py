@@ -49,5 +49,5 @@ class DespesaTempProcessor(DespesaChildProcessor):
         model.paidMonths = countPaid
         self.getDAO().update(model)
 
-    def copy(self, model, month):
+    def copy(self):
         pass

@@ -8,6 +8,14 @@ queries = {
         where d.month = :month
         and (:despesa_id is null or dm.despesa_id = :despesa_id);
 	''',
+    'count' : '''
+        select count(1) count
+        from DESPESA_MENSAL dm
+        join DESPESA d
+            on d.id = dm.despesa_id
+        where d.month = :month
+        and (:despesa_id is null or dm.despesa_id = :despesa_id);
+    ''',
     'add' : '''
         insert or replace into DESPESA_MENSAL (despesa_id)
         values (:despesa_id);
@@ -32,7 +40,7 @@ queries = {
         select d.desc, d.val, 0 paid_val, 0 paid, :month month 
         from CP_MONTH
         join DESPESA d 
-            on despesa.month = cp_month.month
+            on d.month = cp_month.month
         join DESPESA_MENSAL dm
             on dm.despesa_id = d.id;
     '''
