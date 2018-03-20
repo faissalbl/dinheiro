@@ -27,20 +27,12 @@ def change_month(params = None):
     month = params[0]
 
     despesaMensalProcessor = DespesaMensalProcessor(month = month)
-    rendaProcessor = RendaProcessor(month = month)
 
     despMensalCount = despesaMensalProcessor.count()
-    rendaCount = rendaProcessor.count()
 
-    totalCount = despMensalCount + rendaCount
-
-    #temp
-    print('totalCount = {}'.format(totalCount))
-
-    if totalCount == 0:
-        print('Copying data from the past months...')
+    if despMensalCount == 0:
+        print('Copying despesas from the past months...')
         despesaMensalProcessor.copy()
-        rendaProcessor.copy()
         print('...Done')
 
 def ls_desp(params = None):
@@ -127,6 +119,7 @@ def add_renda(params = None):
     tipoRenda = self.inputTipoRenda()
     renda = Renda(tipoRenda = tipoRenda)
     renda.val = input('Value: ')
+    renda.taxable = self.inputTaxable()
     rendaProcessor.add(renda)
 
 def inputTipoRenda(self):
@@ -149,6 +142,15 @@ def inputTipoRenda(self):
         print()
 
     return tipoRenda
+
+def inputTaxable(self):
+    mTaxable = {'S': 1, 'N' : 0}
+    while True:
+        taxable = input('Tributavel? (S/N)')
+        if taxable:
+            taxable = mTaxable(taxable.upper())
+            if taxable: 
+                return taxable
 
 
 def rm_renda(params = None):

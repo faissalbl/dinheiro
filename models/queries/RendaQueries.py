@@ -6,7 +6,8 @@ queries = {
             on tr.id = r.tipo_renda_id
         where r.month = :month
         and (:tipo_renda_id is null or tr.id = :tipo_renda_id)
-        and (:auto is null or tr.auto = :auto);
+        and (:auto is null or tr.auto = :auto)
+        and (:taxable is null or r.taxable = :taxable);
 	''',
     'count' : '''
         select count(1) count
@@ -31,17 +32,5 @@ queries = {
         delete from RENDA
         where tipo_renda_id = :tipo_renda_id
         and month = :month;
-    ''',
-    'find_copy' : '''
-        with CP_MONTH as (
-            select max(month) month
-            from RENDA
-            where month < :month
-        )
-        select r.tipo_renda_id, r.val, :month month
-        from CP_MONTH
-        join RENDA r
-            on r.month = cp_month.month
     '''
-
 }

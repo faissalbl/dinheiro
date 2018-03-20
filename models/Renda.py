@@ -4,10 +4,11 @@ from collections import OrderedDict
 
 class Renda(GenericModel):
 
-    def __init__(self, tipoRenda = None, val = None, month = None):
+    def __init__(self, tipoRenda = None, val = None, month = None, taxable = None):
         self.tipoRenda = tipoRenda if tipoRenda else TipoRenda()
         self.val = val
         self.month = month
+        self.taxable = taxable
 
     def __str__(self):
         return "Renda [tipoRendaId: {}, val: {}, month: {}]".format(self.tipoRenda.id if self.tipoRenda else '', self.val, self.month)
