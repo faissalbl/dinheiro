@@ -116,13 +116,13 @@ def ls_renda(params = None):
 
 def add_renda(params = None):
     rendaProcessor = RendaProcessor(month = month)
-    tipoRenda = self.inputTipoRenda()
+    tipoRenda = inputTipoRenda()
     renda = Renda(tipoRenda = tipoRenda)
     renda.val = input('Value: ')
-    renda.taxable = self.inputTaxable()
+    renda.taxable = inputTaxable()
     rendaProcessor.add(renda)
 
-def inputTipoRenda(self):
+def inputTipoRenda():
     tiposRenda = TipoRendaProcessor().ls()
     # rebuild list without the auto calculated ones
     tiposRenda = [x for x in tiposRenda if not x.auto]
@@ -132,9 +132,10 @@ def inputTipoRenda(self):
         nbr = 1
         for tr in tiposRenda:
             print('{}) {}'.format(nbr, tr.desc))
+            nbr += 1
 
         tr_nbr = input('Tipo Renda: ')
-        tr_nbr = tr_nbr - 1
+        tr_nbr = int(tr_nbr) - 1
         if (tr_nbr >= 0 and tr_nbr < len(tiposRenda)):
             tipoRenda = tiposRenda[tr_nbr]
             break
@@ -143,14 +144,13 @@ def inputTipoRenda(self):
 
     return tipoRenda
 
-def inputTaxable(self):
+def inputTaxable():
     mTaxable = {'S': 1, 'N' : 0}
     while True:
         taxable = input('Tributavel? (S/N)')
         if taxable:
-            taxable = mTaxable(taxable.upper())
-            if taxable: 
-                return taxable
+            taxable = mTaxable[taxable.upper()]
+            return taxable
 
 
 def rm_renda(params = None):

@@ -11,7 +11,8 @@ class Renda(GenericModel):
         self.taxable = taxable
 
     def __str__(self):
-        return "Renda [tipoRendaId: {}, val: {}, month: {}]".format(self.tipoRenda.id if self.tipoRenda else '', self.val, self.month)
+        return "Renda [tipoRendaId: {}, val: {}, month: {}, taxable: {}]".format(
+            self.tipoRenda.id if self.tipoRenda else '', self.val, self.month, self.taxable)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
@@ -19,6 +20,7 @@ class Renda(GenericModel):
         d['tipoRenda.auto'] = 'auto'
         d['val'] = 'val'
         d['month'] = 'month'
+        d['taxable'] = 'taxable'
         return d   
 
     def setMonth(self, month):

@@ -1,6 +1,6 @@
 queries = {
 	'find' : '''
-		select tr.id tipo_renda_id, tr.desc, r.val, r.month
+		select tr.id tipo_renda_id, tr.desc, r.val, r.month, r.taxable
 		from RENDA r
         join TIPO_RENDA tr
             on tr.id = r.tipo_renda_id
@@ -19,12 +19,13 @@ queries = {
         and (:auto is null or tr.auto = :auto);
     ''',
     'add' : '''
-        insert or replace into RENDA (tipo_renda_id, val, month)
-        values (:tipo_renda_id, :val, :month);
+        insert or replace into RENDA (tipo_renda_id, val, month, taxable)
+        values (:tipo_renda_id, :val, :month, :taxable);
     ''',
     'update' : '''
         update RENDA
-        set val = :val
+        set val = :val,
+            taxable = :taxable
         where tipo_renda_id = :tipo_renda_id
         and month = :month;
     ''',
