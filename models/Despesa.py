@@ -25,3 +25,21 @@ class Despesa(GenericModel):
         d['paid'] = 'paid'
         d['month'] = 'month'
         return d   
+
+    def defOutputStr(self):
+        result = str(self.id).rjust(6, ' ').ljust(8, ' ')
+        result += self.desc.ljust(30, ' ')
+        result += ('%.2f' % self.val).rjust(8, ' ').ljust(10, ' ')
+        result += ('%.2f' % self.paidVal).rjust(8, ' ').ljust(10, ' ')
+        result += str(self.paid).rjust(4, ' ').ljust(6, ' ')
+        result += str(self.month).ljust(12, ' ')
+        return result
+
+    def defOutputStrHeader(self):
+        result = 'ID'.rjust(6, ' ').ljust(8, ' ')
+        result += 'DESC'.ljust(30, ' ')
+        result += 'VAL'.rjust(8, ' ').ljust(10, ' ')
+        result += 'PAID VAL'.rjust(8, ' ').ljust(10, ' ')
+        result += 'PAID'.rjust(4, ' ').ljust(6, ' ')
+        result += 'MONTH'.ljust(12, ' ')
+        return result

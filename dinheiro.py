@@ -31,8 +31,11 @@ def change_month(params = None):
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor(month = month).find()
+    despesaMensalHeader = DespesaMensal()
+    print(despesaMensalHeader.defOutputStrHeader())
+    print(despesaMensalHeader.defOutputHr())
     for d in despesas:
-        print(d)
+        print(d.defOutputStr())
 
 def add_desp(params = None):
     despesaMensal = DespesaMensal()

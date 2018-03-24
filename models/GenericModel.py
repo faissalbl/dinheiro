@@ -36,3 +36,12 @@ class GenericModel:
         modName = 'models.queries.' + modName
         queryModule = importlib.import_module(modName)
         return queryModule
+
+    def defOutputStr(self):
+        raise NotImplementedError('Implement defOutputStr')
+
+    def defOutputStrHeader(self):
+        raise NotImplementedError('Implement defOutputStrHeader')
+
+    def defOutputHr(self):
+        raise NotImplementedError('Implement defOutputHr')

@@ -9,3 +9,11 @@ class DespesaChild(GenericModel):
 
     def setMonth(self, month):
         self.despesa.month = month
+
+    def defOutputStr(self):
+        result = self.despesa.defOutputStr()
+        return result
+        
+    def defOutputStrHeader(self):
+        result = self.despesa.defOutputStrHeader()
+        return result

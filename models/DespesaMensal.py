@@ -16,4 +16,17 @@ class DespesaMensal(DespesaChild):
         d['despesa.month'] = 'month'
         d['despesa.desc'] = 'desc'
         d['auto'] = 'auto'
-        return d     
+        return d    
+
+    def defOutputStr(self):
+        result = super().defOutputStr()
+        result += str(self.auto).rjust(4, ' ') + '  '
+        return result
+        
+    def defOutputStrHeader(self):
+        result = super().defOutputStrHeader()
+        result += 'AUTO'.rjust(4, ' ') + '  '
+        return result
+
+    def defOutputHr(self):
+        return '-'.ljust(len(self.defOutputStrHeader()), '-')

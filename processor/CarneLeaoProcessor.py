@@ -35,9 +35,7 @@ class CarneLeaoProcessor(GenericProcessor):
         if (len(paramResult) == 1):
             percIncome = paramResult[0]
 
-        print(percIncome)
-
-        # need to parameterize this if carne leao withheld amount varies
+       # need to parameterize this if carne leao withheld amount varies
         withheldPerc = 0.1
 
         totalRenda = 0.0
