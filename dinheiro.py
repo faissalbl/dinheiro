@@ -36,7 +36,7 @@ def change_month(params = None):
         print('...Done')
 
 def ls_desp(params = None):
-    despesas = DespesaMensalProcessor(month = month).ls()
+    despesas = DespesaMensalProcessor(month = month).find()
     for d in despesas:
         print(d)
 
@@ -48,7 +48,7 @@ def add_desp(params = None):
 
 def rm_desp(params = None):
     despesaMensal = DespesaMensal(despesa = Despesa(id = params[0]))
-    DespesaMensalProcessor(month = month).rm(despesaMensal)
+    DespesaMensalProcessor(month = month).delete(despesaMensal)
 
 def pay_desp(params = None):
     id = params[0]
@@ -60,7 +60,7 @@ def pay_desp(params = None):
     DespesaMensalProcessor(month = month).pay(despesaMensal)    
 
 def ls_desp_an(params = None):
-    despesas = DespesaAnualProcessor(month = month).ls()
+    despesas = DespesaAnualProcessor(month = month).find()
     for d in despesas:
         print(d)
 
@@ -72,7 +72,7 @@ def add_desp_an(params = None):
 
 def rm_desp_an(params = None):
     despesaAnual = DespesaAnual(despesa = Despesa(id = params[0]))
-    DespesaAnualProcessor(month = month).rm(despesaAnual)
+    DespesaAnualProcessor(month = month).delete(despesaAnual)
 
 def pay_desp_an(params = None):
     id = params[0]
@@ -85,7 +85,7 @@ def pay_desp_an(params = None):
     DespesaAnualProcessor(month = month).pay(despesaAnual)
 
 def ls_desp_tmp(params = None):
-    despesas = DespesaTempProcessor(month = month).ls()
+    despesas = DespesaTempProcessor(month = month).find()
     for d in despesas:
         print(d)
         for p in d.pagamentos:
@@ -95,7 +95,7 @@ def ls_desp_tmp(params = None):
 
 def rm_desp_tmp(params = None):
     despesaTemp = DespesaTemp(despesa = Despesa(id = params[0]))
-    DespesaTempProcessor(month = month).rm(despesaTemp)
+    DespesaTempProcessor(month = month).delete(despesaTemp)
 
 def pay_desp_tmp(params = None):
     id = params[0]
@@ -110,7 +110,7 @@ def add_desp_tmp(params = None):
     DespesaTempProcessor(month = month).add(despesaTemp)
 
 def ls_renda(params = None):
-    rendas = RendaProcessor(month = month).ls()
+    rendas = RendaProcessor(month = month).find()
     for r in rendas:
         print(r)
 
@@ -123,7 +123,7 @@ def add_renda(params = None):
     rendaProcessor.add(renda)
 
 def inputTipoRenda():
-    tiposRenda = TipoRendaProcessor().ls()
+    tiposRenda = TipoRendaProcessor().find()
     # rebuild list without the auto calculated ones
     tiposRenda = [x for x in tiposRenda if not x.auto]
     tipoRenda = None
@@ -155,7 +155,7 @@ def inputTaxable():
 
 def rm_renda(params = None):
     renda = Renda(tipoRenda = TipoRenda(id = params[0]))
-    RendaProcessor(month = month).rm(renda)
+    RendaProcessor(month = month).delete(renda)
 
 methods = dict({
     'change_month': change_month,

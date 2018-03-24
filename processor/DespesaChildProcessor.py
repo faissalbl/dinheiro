@@ -40,12 +40,12 @@ class DespesaChildProcessor(GenericProcessor):
 
     def add(self, model):
         super().add(model)
-        self.rendaProcessor.refreshReserva()
+        self.rendaProcessor.updateReserva()
 
-    def rm(self, model):
-        super().rm(model)
-        self.rendaProcessor.refreshReserva()
+    def delete(self, model):
+        super().delete(model)
+        self.rendaProcessor.updateReserva()
 
-    def edit(self, model):
-        super().edit(model)
-        self.rendaProcessor.refreshReserva()
+    def update(self, model):
+        super().update(model)
+        self.rendaProcessor.updateReserva()

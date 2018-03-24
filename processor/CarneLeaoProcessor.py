@@ -8,8 +8,8 @@ from dao.ParameterDAO import ParameterDAO
 
 class CarneLeaoProcessor(GenericProcessor):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, month = None):
+        super().__init__(month = month)
         self.carneLeaoDAO = CarneLeaoDAO()
     
     def getDAO(self):
@@ -17,6 +17,11 @@ class CarneLeaoProcessor(GenericProcessor):
 
     def getModelType(self):
         return CarneLeao
+
+    def updateCarneLeao(self):
+        carneLeao = self.calculateCarneLeao()
+        # add: inserts or replaces a record
+        self.carneLeaoDAO.add(carneLeao)
 
     def calculateCarneLeao(self):
         rendaDAO = RendaDAO()

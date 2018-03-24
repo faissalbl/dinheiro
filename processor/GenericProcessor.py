@@ -28,7 +28,7 @@ class GenericProcessor:
     def getModelType(self):
         raise NotImplementedError('this has not been implemented')
 
-    def ls(self):
+    def find(self):
         model = self.getModelType()()
         model.setMonth(self.month)
         return self.getDAO().find(model)
@@ -42,12 +42,13 @@ class GenericProcessor:
         model.setMonth(self.month)
         self.getDAO().add(model)
 
-    def rm(self, model):
+    def delete(self, model):
         model.setMonth(self.month)
         self.getDAO().delete(model)
 
-    def edit(self, model):
-        raise NotImplementedError('not implemented')
+    def update(self, model):
+        model.setMonth(self.month)
+        self.getDAO().update(model)
 
     def copy(self):
         model = self.getModelType()()

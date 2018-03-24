@@ -6,7 +6,8 @@ queries = {
         join DESPESA d
             on d.id = dm.despesa_id
         where d.month = :month
-        and (:despesa_id is null or dm.despesa_id = :despesa_id);
+        and (:despesa_id is null or dm.despesa_id = :despesa_id)
+        and (:auto is null or dm.auto = :auto);
 	''',
     'count' : '''
         select count(1) count

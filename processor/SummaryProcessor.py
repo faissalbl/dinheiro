@@ -11,8 +11,8 @@ class SummaryProcessor:
 
     def buildSummary(self):
         summary = Summary()
-        summary.rendas = RendaProcessor(month = self.month).ls()
-        summary.despesasAnuais = DespesaAnualProcessor(month = self.month).ls()
-        summary.despesasMensais = DespesaMensalProcessor(month = self.month).ls()
-        summary.despesasTemp = DespesaTempProcessor(month = self.month).ls()
+        summary.rendas = RendaProcessor(month = self.month).find()
+        summary.despesasAnuais = DespesaAnualProcessor(month = self.month).find()
+        summary.despesasMensais = DespesaMensalProcessor(month = self.month).find()
+        summary.despesasTemp = DespesaTempProcessor(month = self.month).find()
         return summary
