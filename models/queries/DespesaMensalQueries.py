@@ -1,12 +1,13 @@
 queries = {
 	'find' : '''
 		select d.id, d.desc, d.val, d.paid_val, d.paid,
-        d.month
+        d.month, dm.auto
 		from DESPESA_MENSAL dm
         join DESPESA d
             on d.id = dm.despesa_id
         where d.month = :month
         and (:despesa_id is null or dm.despesa_id = :despesa_id)
+        and (:desc is null or d.desc = :desc)
         and (:auto is null or dm.auto = :auto);
 	''',
     'count' : '''
@@ -18,8 +19,8 @@ queries = {
         and (:despesa_id is null or dm.despesa_id = :despesa_id);
     ''',
     'add' : '''
-        insert or replace into DESPESA_MENSAL (despesa_id)
-        values (:despesa_id);
+        insert or replace into DESPESA_MENSAL (despesa_id, auto)
+        values (:despesa_id, :auto);
     ''',
     'delete' : '''
         delete from DESPESA_MENSAL
@@ -38,7 +39,7 @@ queries = {
             from DESPESA
             where month < :month
         )
-        select d.desc, d.val, 0 paid_val, 0 paid, :month month 
+        select d.desc, d.val, 0 paid_val, 0 paid, :month month, dm.auto
         from CP_MONTH
         join DESPESA d 
             on d.month = cp_month.month

@@ -21,19 +21,13 @@ from processor.DespesaTempProcessor import DespesaTempProcessor
 from processor.GenericProcessor import GenericProcessor
 from processor.RendaProcessor import RendaProcessor
 from processor.TipoRendaProcessor import TipoRendaProcessor
+from processor.MonthProcessor import MonthProcessor
 
 def change_month(params = None):
     global month 
     month = params[0]
-
-    despesaMensalProcessor = DespesaMensalProcessor(month = month)
-
-    despMensalCount = despesaMensalProcessor.count()
-
-    if despMensalCount == 0:
-        print('Copying despesas from the past months...')
-        despesaMensalProcessor.copy()
-        print('...Done')
+    MonthProcessor.changeMonth(month)
+    
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor(month = month).find()

@@ -10,7 +10,8 @@ class CarneLeao(GenericModel):
         self.paid = paid
 
     def __str__(self):
-        return "CarneLeao [month: {}, income: {}, tax: {}, paid: {}]".format(self.month, self.income, self.tax, self.paid)
+        return "CarneLeao [month: {}, income: {}, tax: {}, paid: {}]".format(
+            self.month, self.income, self.tax, self.paid)
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
