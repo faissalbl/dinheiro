@@ -44,4 +44,4 @@ class GenericModel:
         raise NotImplementedError('Implement defOutputStrHeader')
 
     def defOutputHr(self):
-        raise NotImplementedError('Implement defOutputHr')
+        return '-'.ljust(len(self.defOutputStrHeader()), '-')

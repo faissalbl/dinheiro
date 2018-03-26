@@ -1,6 +1,6 @@
 queries = {
 	'find' : '''
-		select tr.id tipo_renda_id, tr.desc, r.val, r.month, r.taxable
+		select tr.id tipo_renda_id, tr.desc, r.val, r.month, tr.auto, r.taxable
 		from RENDA r
         join TIPO_RENDA tr
             on tr.id = r.tipo_renda_id

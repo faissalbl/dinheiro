@@ -20,13 +20,10 @@ class DespesaMensal(DespesaChild):
 
     def defOutputStr(self):
         result = super().defOutputStr()
-        result += str(self.auto).rjust(4, ' ') + '  '
+        result += str(self.auto).rjust(4, ' ').ljust(6, ' ')
         return result
         
     def defOutputStrHeader(self):
         result = super().defOutputStrHeader()
-        result += 'AUTO'.rjust(4, ' ') + '  '
+        result += 'AUTO'.rjust(4, ' ').ljust(6, ' ')
         return result
-
-    def defOutputHr(self):
-        return '-'.ljust(len(self.defOutputStrHeader()), '-')

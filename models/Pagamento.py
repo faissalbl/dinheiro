@@ -22,3 +22,15 @@ class Pagamento(GenericModel):
         d['paid'] = 'paid'
         d['month'] = 'month'
         return d     
+
+    def defOutputStr(self):
+        result = str(self.val).rjust(7, ' ').ljust(9, ' ')
+        result += str(self.paid).rjust(4, ' ').ljust(6, ' ')
+        result += str(self.month).ljust(12, ' ')
+        return result
+        
+    def defOutputStrHeader(self):
+        result = 'VAL'.rjust(7, ' ').ljust(9, ' ')
+        result += 'PAID'.rjust(4, ' ').ljust(6, ' ')
+        result += 'MONTH'.ljust(12, ' ')
+        return result

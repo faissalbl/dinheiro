@@ -13,6 +13,7 @@ from models.Despesa import Despesa
 from models.DespesaMensal import DespesaMensal
 from models.DespesaAnual import DespesaAnual
 from models.DespesaTemp import DespesaTemp
+from models.Pagamento import Pagamento
 from models.Renda import Renda
 from models.TipoRenda import TipoRenda
 from processor.DespesaMensalProcessor import DespesaMensalProcessor
@@ -37,6 +38,8 @@ def ls_desp(params = None):
     for d in despesas:
         print(d.defOutputStr())
 
+    print()
+
 def add_desp(params = None):
     despesaMensal = DespesaMensal()
     despesaMensal.despesa.desc = input('Description: ')
@@ -58,8 +61,13 @@ def pay_desp(params = None):
 
 def ls_desp_an(params = None):
     despesas = DespesaAnualProcessor(month = month).find()
+    despesaAnualHeader = DespesaAnual()
+    print(despesaAnualHeader.defOutputStrHeader())
+    print(despesaAnualHeader.defOutputHr())
     for d in despesas:
-        print(d)
+        print(d.defOutputStr())
+
+    print()
 
 def add_desp_an(params = None):
     despesaAnual = DespesaAnual()
@@ -83,10 +91,19 @@ def pay_desp_an(params = None):
 
 def ls_desp_tmp(params = None):
     despesas = DespesaTempProcessor(month = month).find()
+    despesaTempHeader = DespesaTemp()
+    pagamentoHeader = Pagamento()
+    pagamentoHeadingSpace = '    '
+    print(despesaTempHeader.defOutputStrHeader())
+    print(despesaTempHeader.defOutputHr())
     for d in despesas:
-        print(d)
+        print(d.defOutputStr())
+        print()
+
+        print(pagamentoHeadingSpace + pagamentoHeader.defOutputStrHeader())
+        print(pagamentoHeadingSpace + pagamentoHeader.defOutputHr())
         for p in d.pagamentos:
-            print('    ' + str(p))
+            print(pagamentoHeadingSpace + str(p.defOutputStr()))
 
         print()
 
@@ -108,8 +125,13 @@ def add_desp_tmp(params = None):
 
 def ls_renda(params = None):
     rendas = RendaProcessor(month = month).find()
+    rendaHeader = Renda()
+    print(rendaHeader.defOutputStrHeader())
+    print(rendaHeader.defOutputHr())
     for r in rendas:
-        print(r)
+        print(r.defOutputStr())
+
+    print()
 
 def add_renda(params = None):
     rendaProcessor = RendaProcessor(month = month)

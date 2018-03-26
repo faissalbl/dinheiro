@@ -28,3 +28,16 @@ class DespesaTemp(DespesaChild):
         d['months'] = 'months'
         d['paidMonths'] = 'paid_months'
         return d     
+
+    def defOutputStr(self):
+        result = super().defOutputStr()
+        result += str(self.months).rjust(6, ' ').ljust(8, ' ')
+        result += str(self.paidMonths).rjust(11, ' ').ljust(13, ' ')
+
+        return result
+        
+    def defOutputStrHeader(self):
+        result = super().defOutputStrHeader()
+        result += 'MONTHS'.rjust(6, ' ').ljust(8, ' ')
+        result += 'PAID MONTHS'.rjust(11, ' ').ljust(13, ' ')
+        return result

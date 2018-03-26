@@ -20,3 +20,14 @@ class DespesaAnual(DespesaChild):
         d['despesa.month'] = 'month'
         d['savedVal'] = 'saved_val'
         return d     
+
+    def defOutputStr(self):
+        result = super().defOutputStr()
+        result += ('%.2f' % self.savedVal).rjust(9, ' ').ljust(11, ' ')
+
+        return result
+        
+    def defOutputStrHeader(self):
+        result = super().defOutputStrHeader()
+        result += 'SAVED VAL'.rjust(9, ' ').ljust(11, ' ')
+        return result

@@ -20,3 +20,15 @@ class TipoRenda(GenericModel):
         d['desc'] = 'desc'
         d['auto'] = 'auto'
         return d        
+
+    def defOutputStr(self):
+        result = self.id.ljust(9, ' ')
+        result += self.desc.ljust(20, ' ')
+        result += str(self.auto).rjust(4, ' ').ljust(6, ' ')
+        return result
+
+    def defOutputStrHeader(self):
+        result = 'ID'.ljust(9, ' ')
+        result += 'DESC'.ljust(20, ' ')
+        result += 'AUTO'.rjust(4, ' ').ljust(6, ' ')
+        return result
