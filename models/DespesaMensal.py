@@ -12,9 +12,7 @@ class DespesaMensal(DespesaChild):
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
-        d['despesa.id'] = 'despesa_id'
-        d['despesa.month'] = 'month'
-        d['despesa.desc'] = 'desc'
+        d.update(super().getPropertyToColumnDict())
         d['auto'] = 'auto'
         return d    
 

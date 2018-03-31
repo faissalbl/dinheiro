@@ -1,5 +1,6 @@
 from transforms.GenericTransform import GenericTransform
 from models.Despesa import Despesa
+from models.Month import Month
 
 class DespesaChildTransf(GenericTransform):
     
@@ -11,4 +12,8 @@ class DespesaChildTransf(GenericTransform):
             val = row['val'] if 'val' in keys else None, 
             paidVal = row['paid_val'] if 'paid_val' in keys else None, 
             paid = row['paid'] if 'paid' in keys else None, 
-            month = row['month'] if 'month' in keys else None)
+            month = Month(
+                id = row['month_id'] if 'month_id' in keys else None,
+                month = row['month'] if 'month' in keys else None
+            )
+        )

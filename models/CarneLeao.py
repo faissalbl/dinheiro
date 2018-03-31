@@ -15,7 +15,7 @@ class CarneLeao(GenericModel):
 
     def getPropertyToColumnDict(self):
         d = OrderedDict()
-        d['month'] = 'month'
+        d['month.id'] = 'month_id'
         d['income'] = 'income'
         d['tax'] = 'tax'
         d['paid'] = 'paid'
@@ -23,3 +23,6 @@ class CarneLeao(GenericModel):
 
     def setMonth(self, month):
         self.month = month     
+
+    def getMonth(self):
+        return self.month

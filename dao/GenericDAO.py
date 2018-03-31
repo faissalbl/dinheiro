@@ -44,6 +44,7 @@ class GenericDAO:
         params = self.buildParams(model)
         result = self.executeQuery(query, params = params)
         for m in result:
+            m.setMonth(model.getMonth())
             self.add(m)
 
 

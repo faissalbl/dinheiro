@@ -17,7 +17,7 @@ class Pagamento(GenericModel):
     def getPropertyToColumnDict(self):
         d = OrderedDict()
         d['despesaTemp.despesa.id'] = 'despesa_id'
-        d['despesaTemp.despesa.month'] = 'despesa_month'
+        d['despesaTemp.despesa.month.id'] = 'month_id'
         d['val'] = 'val'
         d['paid'] = 'paid'
         d['month'] = 'month'

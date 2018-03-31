@@ -1,26 +1,7 @@
-from datetime import date
-import re
-
 class GenericProcessor:
 
-    def __init__(self, month = None):
-        if month == None:
-            self.month = self.getCurrentMonth()
-        elif type(month).__name__ == 'date':
-            self.month = month
-        else:
-            self.changeMonth(month)
-
-    def getCurrentMonth(self):
-        today = date.today()
-        return date(today.year, today.month, 1)
-
-    def changeMonth(self, month):
-        aMonth = re.split('/| |,|-', month)
-        if len(aMonth) != 2:
-            raise ValueError('{} is not a valid month format. Valid month formats look like: {}'.format(month, '\'02 2018\', \'02-2018\', \'02/2018\', \'02,2018\'')) 
-
-        self.month = date(int(aMonth[1]), int(aMonth[0]), 1)
+    def __init__(self, month):
+        self.month = month
 
     def getDAO(self):
         raise NotImplementedError('subclasses must implement this')

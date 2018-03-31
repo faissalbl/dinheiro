@@ -25,10 +25,10 @@ from processor.TipoRendaProcessor import TipoRendaProcessor
 from processor.MonthProcessor import MonthProcessor
 
 def change_month(params = None):
-    global month 
-    month = params[0]
-    MonthProcessor.changeMonth(month)
-    
+    user = 'Terminal'
+    global month
+    month = params[0] if params else None 
+    month = MonthProcessor(month = month).changeMonth(user)
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor(month = month).find()
@@ -195,12 +195,10 @@ methods = dict({
     'rm_renda': rm_renda
 })
 
-month = GenericProcessor().month
-month = '{}/{}'.format(month.month, month.year)
-change_month(params = [month])
+change_month()
 
 while True:
-    args = input('dinheiro - month: {}> '.format(month))
+    args = input('dinheiro - month: {}> '.format(month.month))
     if args == 'exit' or args == 'quit':
         sys.exit(0)
 

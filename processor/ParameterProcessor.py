@@ -5,7 +5,7 @@ from models.Parameter import Parameter
 class ParameterProcessor(GenericProcessor):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(None)
         self.parameterDAO = ParameterDAO()
     
     def getDAO(self):

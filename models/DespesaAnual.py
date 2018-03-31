@@ -11,13 +11,9 @@ class DespesaAnual(DespesaChild):
     def __str__(self):
         return "DespesaAnual [despesa: {}, savedVal: {}]".format(self.despesa, self.savedVal)
 
-    def setMonth(self, month):
-        self.despesa.month = date(month.year, 1, 1)
-
     def getPropertyToColumnDict(self):
         d = OrderedDict()
-        d['despesa.id'] = 'despesa_id'
-        d['despesa.month'] = 'month'
+        d.update(super().getPropertyToColumnDict())
         d['savedVal'] = 'saved_val'
         return d     
 

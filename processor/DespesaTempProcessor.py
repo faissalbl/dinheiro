@@ -3,6 +3,7 @@ from processor.DespesaChildProcessor import DespesaChildProcessor
 from models.DespesaTemp import DespesaTemp
 from models.Pagamento import Pagamento
 from dao.DespesaTempDAO import DespesaTempDAO
+from utils import DateUtil
 
 class DespesaTempProcessor(DespesaChildProcessor):
 
@@ -18,11 +19,11 @@ class DespesaTempProcessor(DespesaChildProcessor):
 
     def add(self, model):
         if model.months:
-            initialMonth = self.month
+            pMonth = self.month.month
             for i in range(model.months):
-                month = date(self.month.year, self.month.month + i, self.month.day)
-                pagamento = Pagamento(val = model.despesa.val, month = month)
+                pagamento = Pagamento(val = model.despesa.val, month = pMonth)
                 model.pagamentos.append(pagamento)
+                pMonth = DateUtil.nextMonth(pMonth)
 
         super().add(model)
 
@@ -37,7 +38,7 @@ class DespesaTempProcessor(DespesaChildProcessor):
 
         countPaid = 0
         for p in model.pagamentos:
-            if p.month == str(self.month):
+            if p.month == str(self.month.month):
                 p.paid = 1
 
             if (p.paid):

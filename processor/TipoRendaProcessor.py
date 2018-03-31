@@ -5,7 +5,7 @@ from dao.TipoRendaDAO import TipoRendaDAO
 class TipoRendaProcessor(GenericProcessor):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(None)
         self.tipoRendaDAO = TipoRendaDAO()
     
     def getDAO(self):

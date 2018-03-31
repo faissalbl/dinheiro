@@ -9,6 +9,9 @@ class GenericModel:
     def setMonth(self, month):
         raise NotImplementedError('This has to be implemented by the subclass')
 
+    def getMonth(self):
+        raise NotImplementedError('This has to be implemented by the subclass')        
+
     #------------------------------------------------------
     # Builds a dictionary that translates model properties'
     # names to table column names.

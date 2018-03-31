@@ -1,10 +1,13 @@
 queries = {
 	'find' : '''
 		select d.id, d.desc, d.val, d.paid_val, d.paid,
-        d.month, dt.months, dt.paid_months
+        d.month_id, m.month, dt.months, dt.paid_months
 		from DESPESA_TEMP dt
         join DESPESA d
             on d.id = dt.despesa_id
+        join MONTH m
+            on m.id = d.month_id
+            and m.user = :user
         where ( 
             exists (
                 select p.despesa_id
@@ -12,10 +15,10 @@ queries = {
                 where p.despesa_id = dt.despesa_id
                 and p.month = :month
             )
-            or d.month = :month
+            or d.month_id = :month_id
         )
         and (:despesa_id is null or dt.despesa_id = :despesa_id)
-        order by d.month;
+        order by m.month;
 	''',
     'count' : '''
         select count(1) count
@@ -29,7 +32,13 @@ queries = {
                 where p.despesa_id = dt.despesa_id
                 and p.month = :month
             )
-            or d.month = :month
+            or d.month_id = :month_id
+        )
+        and exists (
+            select 1
+            from MONTH 
+            where id = d.month_id
+            and user = :user
         )
         and (:despesa_id is null or dt.despesa_id = :despesa_id)
         order by d.month;
@@ -60,7 +69,14 @@ queries = {
                 where p.despesa_id = dt.despesa_id
                 and p.month = :month
             )
-            or d.month = :month
-        );
+            or d.month_id = :month_id
+        )
+        and exists (
+            select 1
+            from MONTH 
+            where id = d.month_id
+            and user = :user
+        )
+        ;
     '''
 }
