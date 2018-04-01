@@ -6,7 +6,7 @@ queries = {
             where id = :month_id
         )
         select d.id id, d.desc desc, d.val val, d.paid_val paid_val, 
-        d.paid paid, d.month_id month_id, m.month month, da.saved_val saved_val
+        d.paid paid, d.month_id month_id, m.month month
         from DESPESA_ANUAL da
         join DESPESA d
             on d.id = da.despesa_id
@@ -26,13 +26,8 @@ queries = {
         and (:despesa_id is null or da.despesa_id = :despesa_id);
     ''',
     'add' : '''
-        insert or replace into DESPESA_ANUAL (despesa_id, saved_val)
-        values (:despesa_id, :saved_val);
-    ''',
-    'update' : '''
-        update DESPESA_ANUAL
-        set saved_val = :saved_val
-        where despesa_id = :despesa_id;
+        insert or replace into DESPESA_ANUAL (despesa_id)
+        values (:despesa_id);
     ''',
     'delete' : '''
         delete from DESPESA_ANUAL
@@ -62,7 +57,7 @@ queries = {
                 and m.user = :user
             where strftime('%Y', m.month) < strftime('%Y', :month)
         )
-        select d.desc, d.val, 0 paid_val, 0 paid, da.saved_val 
+        select d.desc, d.val, 0 paid_val, 0 paid 
         from CP_YEAR
         join MONTH m
             on m.month = cp_year.year||'-01-01'

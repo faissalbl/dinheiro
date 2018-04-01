@@ -39,7 +39,6 @@ class PagamentoDAOTest(GenericTest):
         despesaTemp.despesa.val = 1900
         despesaTemp.despesa.paidVal = 600
         despesaTemp.despesa.paid = 0
-        despesaTemp.savedVal = 400
         despesaTemp.months = 6
         despesaTemp.paidMonths = 3
 

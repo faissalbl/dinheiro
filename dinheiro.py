@@ -76,12 +76,10 @@ def ls_desp_an(params = None):
     despesaAnualHeader = DespesaAnual()
     print(despesaAnualHeader.defOutputStrHeader())
     print(despesaAnualHeader.defOutputHr())
-    totalSavedVal = 0.0
     for d in despesas:
-        totalSavedVal += d.savedVal
         print(d.defOutputStr())
 
-    despTotal = DespesaAnual(despesa = calculateDespesaTotal(despesas), savedVal = totalSavedVal)
+    despTotal = DespesaAnual(despesa = calculateDespesaTotal(despesas))
     print(despesaAnualHeader.defOutputHr())
     print(despTotal.defOutputStr())
     print()

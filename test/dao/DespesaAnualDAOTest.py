@@ -19,7 +19,6 @@ class DespesaAnualDAOTest(GenericTest):
         despesaAnual.despesa.val = 1800
         despesaAnual.despesa.paidVal = 500
         despesaAnual.despesa.paid = 0
-        despesaAnual.savedVal = 300
 
         self.despesaAnualDAO.add(despesaAnual)
 
@@ -28,7 +27,6 @@ class DespesaAnualDAOTest(GenericTest):
         despesaAnual.despesa.val = 1900
         despesaAnual.despesa.paidVal = 600
         despesaAnual.despesa.paid = 0
-        despesaAnual.savedVal = 400
 
         self.despesaAnualDAO.add(despesaAnual)
 
@@ -42,7 +40,7 @@ class DespesaAnualDAOTest(GenericTest):
         assert type(result[0]).__name__ == 'DespesaAnual', "Result type must be DespesaAnual"
         assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
         assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0 and result[0].savedVal == 300, "val, paidVal, paid, savedVal must be 1800, 500, 0, 300"
+        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0, "val, paidVal, paid must be 1800, 500, 0"
 
         #find test row 1
         result = self.findTestRow2()
@@ -51,7 +49,7 @@ class DespesaAnualDAOTest(GenericTest):
         assert type(result[0]).__name__ == 'DespesaAnual', "Result type must be DespesaAnual"
         assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
         assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0 and result[0].savedVal == 400, "val, paidVal, paid, savedVal must be 1900, 600, 0, 400"
+        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0, "val, paidVal, paid must be 1900, 600, 0"
 
         print(self.getJustifiedSuccessMsg("find"))
 
@@ -60,16 +58,14 @@ class DespesaAnualDAOTest(GenericTest):
         result = self.findTestRow1()
         model = result[0]
         newVal = 1300
-        newSavedVal = 200
         model.despesa.val = newVal
-        model.savedVal = newSavedVal
         self.despesaAnualDAO.update(model)
         
         # find and validate updated test row
         result = self.findTestRow1()
         model = result[0]
         print(model)
-        assert model.despesa.val == newVal and model.savedVal == newSavedVal, "Val, SavedVal should be {}, {}".format(newVal, newSavedVal)
+        assert model.despesa.val == newVal, "Val should be {}".format(newVal)
         print(self.getJustifiedSuccessMsg("update"))
 
     def testDelete(self):

@@ -40,7 +40,7 @@ class DespesaMensalDAOTest(GenericTest):
         assert type(result[0]).__name__ == 'DespesaMensal', "Result type must be DespesaMensal"
         assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
         assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0, "val, paidVal, paid, savedVal must be 1800, 500, 0"
+        assert result[0].despesa.val == 1800 and result[0].despesa.paidVal == 500 and result[0].despesa.paid == 0, "val, paidVal, paid must be 1800, 500, 0"
 
         #find test row 1
         result = self.findTestRow2()
@@ -49,7 +49,7 @@ class DespesaMensalDAOTest(GenericTest):
         assert type(result[0]).__name__ == 'DespesaMensal', "Result type must be DespesaMensal"
         assert result[0].despesa.desc == 'desp test', "Resulting row must be desc 'desp test'"
         assert result[0].despesa.id, "id must be filled in"
-        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0, "val, paidVal, paid, savedVal must be 1900, 600, 0"
+        assert result[0].despesa.val == 1900 and result[0].despesa.paidVal == 600 and result[0].despesa.paid == 0, "val, paidVal, paid must be 1900, 600, 0"
 
         print(self.getJustifiedSuccessMsg("find"))
 
@@ -65,7 +65,7 @@ class DespesaMensalDAOTest(GenericTest):
         result = self.findTestRow1()
         model = result[0]
         print(model)
-        assert model.despesa.val == newVal, "Val, SavedVal should be {}, {}".format(newVal)
+        assert model.despesa.val == newVal, "Val should be {}".format(newVal)
         print(self.getJustifiedSuccessMsg("update"))
 
     def testDelete(self):
