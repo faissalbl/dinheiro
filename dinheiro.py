@@ -38,7 +38,19 @@ def ls_desp(params = None):
     for d in despesas:
         print(d.defOutputStr())
 
+    despTotal = DespesaMensal(despesa = calculateDespesaTotal(despesas))
+    print(despesaMensalHeader.defOutputHr())
+    print(despTotal.defOutputStr())
     print()
+
+def calculateDespesaTotal(despesasChild):
+    totalVal = 0.0
+    totalPaidVal = 0.0
+    for d in despesasChild:
+        totalVal += d.despesa.val
+        totalPaidVal += d.despesa.paidVal
+
+    return Despesa(desc = 'Total', val = totalVal, paidVal = totalPaidVal)
 
 def add_desp(params = None):
     despesaMensal = DespesaMensal()
@@ -64,9 +76,14 @@ def ls_desp_an(params = None):
     despesaAnualHeader = DespesaAnual()
     print(despesaAnualHeader.defOutputStrHeader())
     print(despesaAnualHeader.defOutputHr())
+    totalSavedVal = 0.0
     for d in despesas:
+        totalSavedVal += d.savedVal
         print(d.defOutputStr())
 
+    despTotal = DespesaAnual(despesa = calculateDespesaTotal(despesas), savedVal = totalSavedVal)
+    print(despesaAnualHeader.defOutputHr())
+    print(despTotal.defOutputStr())
     print()
 
 def add_desp_an(params = None):
@@ -105,7 +122,10 @@ def ls_desp_tmp(params = None):
         for p in d.pagamentos:
             print(pagamentoHeadingSpace + str(p.defOutputStr()))
 
-        print()
+    despTotal = DespesaTemp(despesa = calculateDespesaTotal(despesas))
+    print(despesaTempHeader.defOutputHr())
+    print(despTotal.defOutputStr())
+    print()
 
 def rm_desp_tmp(params = None):
     despesaTemp = DespesaTemp(despesa = Despesa(id = params[0]))
@@ -128,9 +148,14 @@ def ls_renda(params = None):
     rendaHeader = Renda()
     print(rendaHeader.defOutputStrHeader())
     print(rendaHeader.defOutputHr())
+    total = 0.0
     for r in rendas:
+        total += r.val if not r.tipoRenda.auto else 0.0
         print(r.defOutputStr())
 
+    rendaTotal = Renda(TipoRenda(desc = 'Total'), val = total)
+    print(rendaHeader.defOutputHr())
+    print(rendaTotal.defOutputStr()) 
     print()
 
 def add_renda(params = None):

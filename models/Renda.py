@@ -31,9 +31,9 @@ class Renda(GenericModel):
 
     def defOutputStr(self):
         result = self.tipoRenda.defOutputStr()
-        result += ('%.2f' % self.val).rjust(8, ' ').ljust(10, ' ')
-        result += str(self.month.month).ljust(12, ' ')
-        result += str(self.taxable).rjust(7, ' ').ljust(9, ' ')
+        result += ('%.2f' % self.val if self.val != None else '').rjust(8, ' ').ljust(10, ' ')
+        result += str(self.month.month if self.month and self.month.month else '').ljust(12, ' ')
+        result += str(self.taxable if self.taxable != None else '').rjust(7, ' ').ljust(9, ' ')
         return result
 
     def defOutputStrHeader(self):

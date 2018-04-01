@@ -30,8 +30,8 @@ class DespesaTemp(DespesaChild):
 
     def defOutputStr(self):
         result = super().defOutputStr()
-        result += str(self.months).rjust(6, ' ').ljust(8, ' ')
-        result += str(self.paidMonths).rjust(11, ' ').ljust(13, ' ')
+        result += str(self.months if self.months != None else '').rjust(6, ' ').ljust(8, ' ')
+        result += str(self.paidMonths if self.paidMonths != None else '').rjust(11, ' ').ljust(13, ' ')
 
         return result
         

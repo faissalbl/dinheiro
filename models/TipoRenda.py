@@ -22,9 +22,9 @@ class TipoRenda(GenericModel):
         return d        
 
     def defOutputStr(self):
-        result = self.id.ljust(9, ' ')
-        result += self.desc.ljust(20, ' ')
-        result += str(self.auto).rjust(4, ' ').ljust(6, ' ')
+        result = (self.id or '').ljust(9, ' ')
+        result += (self.desc or '').ljust(20, ' ')
+        result += str(self.auto if self.auto != None else '').rjust(4, ' ').ljust(6, ' ')
         return result
 
     def defOutputStrHeader(self):

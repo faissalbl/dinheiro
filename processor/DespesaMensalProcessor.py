@@ -1,5 +1,6 @@
 from processor.DespesaChildProcessor import DespesaChildProcessor
 from processor.MonthProcessor import MonthProcessor
+from processor.ParameterProcessor import ParameterProcessor
 from models.DespesaMensal import DespesaMensal
 from models.Despesa import Despesa
 from models.CarneLeao import CarneLeao
@@ -45,41 +46,43 @@ class DespesaMensalProcessor(DespesaChildProcessor):
         return DespesaAnualProcessor(month = self.month).sum() / 12.0
 
     def updateDespCarneLeao(self):
-        from processor.MonthProcessor import MonthProcessor
-        
-        previousMonth = DateUtil.previousMonth(self.month.month)
-        previousMonthFilter = Month(month = previousMonth, user = self.month.user)
-        previousMonth = None
-        result = MonthProcessor(month = previousMonthFilter).find()
-        if len(result) == 1:
-            previousMonth = result[0]
-
-        carneLeaoTax = 0.0
-        if (previousMonth):
-            carneLeao = CarneLeao(month = previousMonth)
-            result = CarneLeaoDAO().find(carneLeao)
-            carneLeao = None
+        carneLeaoActive = ParameterProcessor().getCarneLeaoActive()
+        if carneLeaoActive:
+            from processor.MonthProcessor import MonthProcessor
+            
+            previousMonth = DateUtil.previousMonth(self.month.month)
+            previousMonthFilter = Month(month = previousMonth, user = self.month.user)
+            previousMonth = None
+            result = MonthProcessor(month = previousMonthFilter).find()
             if len(result) == 1:
-                carneLeao = result[0]
+                previousMonth = result[0]
 
-            if carneLeao:
-               carneLeaoTax = carneLeao.tax
+            carneLeaoTax = 0.0
+            if (previousMonth):
+                carneLeao = CarneLeao(month = previousMonth)
+                result = CarneLeaoDAO().find(carneLeao)
+                carneLeao = None
+                if len(result) == 1:
+                    carneLeao = result[0]
 
-        despCarneLeao = DespesaMensal(
-            Despesa(month = self.month, desc = 'Carne Leao {}'.format(previousMonthFilter.month), 
-            val = carneLeaoTax),
-            auto = 1)
+                if carneLeao:
+                   carneLeaoTax = carneLeao.tax
 
-        despesasMensais = self.despesaMensalDAO.find(despCarneLeao)
-        despesaMensal = None
-        if len(despesasMensais) == 1:
-            despesaMensal = despesasMensais[0]
-            despesaMensal.despesa.val = carneLeaoTax
-        else:
-            despesaMensal = despCarneLeao
+            despCarneLeao = DespesaMensal(
+                Despesa(month = self.month, desc = 'Carne Leao {}'.format(previousMonthFilter.month), 
+                val = carneLeaoTax),
+                auto = 1)
 
-        if despesaMensal.despesa.id:
-            self.update(despesaMensal)
-        else:
-            self.add(despesaMensal)
+            despesasMensais = self.despesaMensalDAO.find(despCarneLeao)
+            despesaMensal = None
+            if len(despesasMensais) == 1:
+                despesaMensal = despesasMensais[0]
+                despesaMensal.despesa.val = carneLeaoTax
+            else:
+                despesaMensal = despCarneLeao
+
+            if despesaMensal.despesa.id:
+                self.update(despesaMensal)
+            else:
+                self.add(despesaMensal)
 

@@ -18,7 +18,7 @@ class DespesaMensal(DespesaChild):
 
     def defOutputStr(self):
         result = super().defOutputStr()
-        result += str(self.auto).rjust(4, ' ').ljust(6, ' ')
+        result += str(self.auto if self.auto != None else '').rjust(4, ' ').ljust(6, ' ')
         return result
         
     def defOutputStrHeader(self):

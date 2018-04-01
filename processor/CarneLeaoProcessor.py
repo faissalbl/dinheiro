@@ -1,10 +1,9 @@
 from processor.GenericProcessor import GenericProcessor
+from processor.ParameterProcessor import ParameterProcessor
 from dao.RendaDAO import RendaDAO
 from models.Renda import Renda
 from models.CarneLeao import CarneLeao
-from models.Parameter import Parameter
 from dao.CarneLeaoDAO import CarneLeaoDAO
-from dao.ParameterDAO import ParameterDAO
 
 class CarneLeaoProcessor(GenericProcessor):
 
@@ -19,9 +18,11 @@ class CarneLeaoProcessor(GenericProcessor):
         return CarneLeao
 
     def updateCarneLeao(self):
-        carneLeao = self.calculateCarneLeao()
-        # add: inserts or replaces a record
-        self.carneLeaoDAO.add(carneLeao)
+        carneLeaoActive = ParameterProcessor().getCarneLeaoActive()
+        if carneLeaoActive:
+            carneLeao = self.calculateCarneLeao()
+            # add: inserts or replaces a record
+            self.carneLeaoDAO.add(carneLeao)
 
     def calculateCarneLeao(self):
         rendaDAO = RendaDAO()
@@ -29,11 +30,7 @@ class CarneLeaoProcessor(GenericProcessor):
         rendas = rendaDAO.find(rendaFilter)
 
         # percent of income to declare
-        parameterFilter = Parameter(namespace = 'carne_leao', name = 'perc')
-        paramResult = ParameterDAO().find(parameterFilter)
-        percIncome = None
-        if (len(paramResult) == 1):
-            percIncome = paramResult[0]
+        percIncome = ParameterProcessor().getCarneLeaoPercIncome()
 
        # need to parameterize this if carne leao withheld amount varies
         withheldPerc = 0.1
@@ -42,7 +39,7 @@ class CarneLeaoProcessor(GenericProcessor):
         for renda in rendas:
             totalRenda += renda.val
 
-        taxableAmount = totalRenda * float(percIncome.val)
+        taxableAmount = totalRenda * float(percIncome)
         withheldAmount = taxableAmount * withheldPerc
 
         return CarneLeao(month = self.month, income = taxableAmount, tax = withheldAmount)

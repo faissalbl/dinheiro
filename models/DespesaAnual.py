@@ -19,7 +19,7 @@ class DespesaAnual(DespesaChild):
 
     def defOutputStr(self):
         result = super().defOutputStr()
-        result += ('%.2f' % self.savedVal).rjust(9, ' ').ljust(11, ' ')
+        result += ('%.2f' % self.savedVal if self.savedVal != None else '').rjust(9, ' ').ljust(11, ' ')
 
         return result
         

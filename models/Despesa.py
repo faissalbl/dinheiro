@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 class Despesa(GenericModel):
 
-    def __init__(self, id = None, desc = None, val = 0, paidVal = 0, paid = 0, month = None):
+    def __init__(self, id = None, desc = None, val = None, paidVal = None, paid = None, month = None):
         self.id = id
         self.desc = desc
         self.val = float(val) if val != None else None
@@ -28,12 +28,12 @@ class Despesa(GenericModel):
         return d   
 
     def defOutputStr(self):
-        result = str(self.id).rjust(6, ' ').ljust(8, ' ')
-        result += self.desc.ljust(30, ' ')
-        result += ('%.2f' % self.val).rjust(8, ' ').ljust(10, ' ')
-        result += ('%.2f' % self.paidVal).rjust(8, ' ').ljust(10, ' ')
-        result += str(self.paid).rjust(4, ' ').ljust(6, ' ')
-        result += str(self.month.month).ljust(12, ' ')
+        result = str(self.id or '').rjust(6, ' ').ljust(8, ' ')
+        result += (self.desc or '').ljust(30, ' ')
+        result += ('%.2f' % self.val if self.val != None else '').rjust(8, ' ').ljust(10, ' ')
+        result += ('%.2f' % self.paidVal if self.paidVal != None else '').rjust(8, ' ').ljust(10, ' ')
+        result += str(self.paid if self.paid != None else '').rjust(4, ' ').ljust(6, ' ')
+        result += str(self.month.month if self.month and self.month.month else '').ljust(12, ' ')
         return result
 
     def defOutputStrHeader(self):
