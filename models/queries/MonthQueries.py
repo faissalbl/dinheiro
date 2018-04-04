@@ -11,7 +11,6 @@ queries = {
     ''',
     'delete' : '''
         delete from MONTH
-        where month = :month
-        and user = :user;
+        where id = :id;
     '''
 }

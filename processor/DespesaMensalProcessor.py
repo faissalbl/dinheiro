@@ -53,7 +53,7 @@ class DespesaMensalProcessor(DespesaChildProcessor):
             previousMonth = DateUtil.previousMonth(self.month.month)
             previousMonthFilter = Month(month = previousMonth, user = self.month.user)
             previousMonth = None
-            result = MonthProcessor(month = previousMonthFilter).find()
+            result = MonthProcessor(previousMonthFilter.user, month = previousMonthFilter).find()
             if len(result) == 1:
                 previousMonth = result[0]
 

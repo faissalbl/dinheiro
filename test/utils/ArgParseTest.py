@@ -3,6 +3,9 @@ from utils import argparser
 
 class ArgParseTest(GenericTest):
 
+    def __init__(self):
+        super().__init__(None)
+
     def test(self):
         self.testMonth()
         self.testLs()

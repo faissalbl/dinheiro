@@ -8,6 +8,5 @@ class DespesaMensalDAO(DespesaChildDAO):
     def update(self, model):
         GenericDAO.update(self, model.despesa)
 
-
     def getTransform(self):
         return DespesaMensalTransf()

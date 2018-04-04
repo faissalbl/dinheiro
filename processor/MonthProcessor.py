@@ -7,7 +7,7 @@ from utils import DateUtil
 
 class MonthProcessor(GenericProcessor):
 
-    def __init__(self, month = None):
+    def __init__(self, user, month = None):
         if month and type(month).__name__ == 'Month':
             self.month = month
         else:
@@ -19,6 +19,7 @@ class MonthProcessor(GenericProcessor):
             else:
                 self.month.month = self.convertMonthInputDate(month)
 
+        self.month.user = user
         super().__init__(month = self.month)
         self.monthDAO = MonthDAO()
     
@@ -36,13 +37,13 @@ class MonthProcessor(GenericProcessor):
 
         return date(int(aMonth[1]), int(aMonth[0]), 1)
 
-    def changeMonth(self, user):
+    def changeMonth(self):
         '''
             Changes the month and then copy despesas mensais from previous months if they
             don't exist.
         '''
         from processor.DespesaMensalProcessor import DespesaMensalProcessor
-        monthFilter = Month(month = self.month.month, user = user)
+        monthFilter = self.month
         months = self.monthDAO.find(monthFilter)
         month = None
         if len(months) == 1:
@@ -74,6 +75,3 @@ class MonthProcessor(GenericProcessor):
     def count(self):
         model = self.month
         return self.getDAO().count(model)
-
-    def add(self, model):
-        self.getDAO().add(model)

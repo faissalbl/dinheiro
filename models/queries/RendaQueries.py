@@ -33,7 +33,7 @@ queries = {
     ''',
     'delete' : '''
         delete from RENDA
-        where tipo_renda_id = :tipo_renda_id
+        where (:tipo_renda_id is null or tipo_renda_id = :tipo_renda_id)
         and month_id = :month_id;
     '''
 }

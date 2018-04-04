@@ -28,7 +28,7 @@ def change_month(params = None):
     user = 'Terminal'
     global month
     month = params[0] if params else None 
-    month = MonthProcessor(month = month).changeMonth(user)
+    month = MonthProcessor(user = user, month = month).changeMonth()
 
 def ls_desp(params = None):
     despesas = DespesaMensalProcessor(month = month).find()
