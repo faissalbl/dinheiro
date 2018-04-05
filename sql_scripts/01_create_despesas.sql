@@ -4,6 +4,6 @@ create table DESPESA (
     val             real     not null default 0,
     paid_val        real,
     paid            integer  not null default 0,
-    month_id        text     not null,
+    month_id        integer     not null,
         foreign key (month_id) references MONTH(id)
 );

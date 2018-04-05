@@ -28,7 +28,11 @@ class DespesaMensalProcessorTest(GenericTest):
         assert len(result) == 2, 'there must be 2 despesas mensais'
 
         for despesaMensal in result:
-            assert despesaMensal.despesa.id and despesaMensal.despesa.desc in ('Test 1', 'Test 2') and despesaMensal.despesa.val == 1000 and despesaMensal.despesa.paidVal == 500 and despesaMensal.despesa.month == self.month, 'despesa mensal expected id must not be null and desc, val, paidVal, month must be {}, {}, {}, {}, but the resulting despesa mensal is {}'.format('Test 1 or Test 2', 1000, 500, self.month, despesaMensal)
+            assert despesaMensal.despesa.id, 'despesa mensal expected id must not be null'
+            assert despesaMensal.despesa.desc in ('Test 1', 'Test 2'), 'desc must be {}, not {}'.format('Test 1 or Test 2', despesaMensal.despesa.desc) 
+            assert despesaMensal.despesa.val == 1000, 'val must be {}, not {}'.format(1000, despesaMensal.despesa.val)
+            assert despesaMensal.despesa.paidVal == 500, 'paidVal must be {}, not {}'.format(500, despesaMensal.despesa.paidVal)
+            assert despesaMensal.despesa.month.id == self.month.id, 'month.id must be {}, not {}'.format(self.month.id, despesaMensal.despesa.month.id)
 
         print(self.getJustifiedSuccessMsg('add'))
 

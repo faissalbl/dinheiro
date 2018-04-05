@@ -1,5 +1,5 @@
 create table CARNE_LEAO (
-    month_id    text    primary key,
+    month_id    integer    primary key,
     income      real    not null default 0,
     tax         real    not null default 0,
     paid        integer not null default 0,
