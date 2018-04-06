@@ -1,6 +1,8 @@
 from utils import argparser 
 from processor.MonthProcessor import MonthProcessor
+from processor.CarneLeaoProcessor import CarneLeaoProcessor
 from models.Month import Month
+from models.CarneLeao import CarneLeao
 
 class GenericTest:
 
@@ -35,6 +37,9 @@ class GenericTest:
     	raise NotImplementedError('not implemented yet')
 
     def testEnd(self):
+        # delete carne leao created when updating renda
+        CarneLeaoProcessor(self.month).delete(CarneLeao(month = self.month))
+
         self.monthProcessor.delete(self.month)
         result = self.monthProcessor.find()
         self.month = None

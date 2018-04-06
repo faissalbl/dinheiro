@@ -4,6 +4,7 @@ from processor.RendaProcessor import RendaProcessor
 from processor.MonthProcessor import MonthProcessor
 from models.Despesa import Despesa
 from models.DespesaMensal import DespesaMensal
+from models.Renda import Renda
 from datetime import date
 
 class DespesaMensalProcessorTest(GenericTest):
@@ -13,7 +14,11 @@ class DespesaMensalProcessorTest(GenericTest):
 
     def testBody(self):
         self.despesaMensalProcessor = DespesaMensalProcessor(month = self.month)
+        self.rendaProcessor = RendaProcessor(month = self.month)
+
         self.despesaMensalFilter = DespesaMensal(despesa = Despesa(month = self.month))
+        self.rendaFilter = Renda(month = self.month)
+
         self.testAdd()
         self.testUpdate()
         self.testDelete()        
@@ -60,3 +65,24 @@ class DespesaMensalProcessorTest(GenericTest):
 
         print(self.getJustifiedSuccessMsg('update'))
     
+    def testDelete(self):
+        result = self.despesaMensalProcessor.find()
+        assert len(result) == 2, 'there must be 2 despesas mensais'
+
+        for despesaMensal in result:
+            self.despesaMensalProcessor.delete(despesaMensal)
+
+        result = self.despesaMensalProcessor.find()
+        assert len(result) == 0, 'there must be no despesas mensais'
+
+        # a renda 'Reserva' must have been created when despesas were created
+        result = self.rendaProcessor.find()
+        assert len(result) == 1, 'there must be one and only one renda'
+        assert result[0].tipoRenda.auto == 1, 'the renda created must be a automatically calculated type'
+
+        self.rendaProcessor.delete(result[0])
+        result = self.rendaProcessor.find()
+        assert len(result) == 0, 'there must be no renda'
+
+        print(self.getJustifiedSuccessMsg('add'))
+
