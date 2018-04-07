@@ -22,7 +22,6 @@ class CarneLeaoProcessor(GenericProcessor):
         if carneLeaoActive:
             carneLeao = self.calculateCarneLeao()
             # add: inserts or replaces a record
-            print(carneLeao)
             self.carneLeaoDAO.add(carneLeao)
 
     def calculateCarneLeao(self):

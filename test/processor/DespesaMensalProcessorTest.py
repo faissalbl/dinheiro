@@ -84,5 +84,5 @@ class DespesaMensalProcessorTest(GenericTest):
         result = self.rendaProcessor.find()
         assert len(result) == 0, 'there must be no renda'
 
-        print(self.getJustifiedSuccessMsg('add'))
+        print(self.getJustifiedSuccessMsg('delete'))
 

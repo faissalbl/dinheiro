@@ -30,7 +30,6 @@ class MonthProcessor(GenericProcessor):
         return Month
 
     def convertMonthInputDate(self, month):
-        print('month: {}'.format(month))
         aMonth = re.split('/| |,|-', month)
         if len(aMonth) != 2:
             raise ValueError('{} is not a valid month format. Valid month formats look like: {}'.format(month, '\'02 2018\', \'02-2018\', \'02/2018\', \'02,2018\'')) 

@@ -2,6 +2,7 @@
 
 from test.utils.ArgParseTest import ArgParseTest
 from test.processor.DespesaMensalProcessorTest import DespesaMensalProcessorTest
+from test.processor.DespesaAnualProcessorTest import DespesaAnualProcessorTest
 from models.DespesaAnual import DespesaAnual
 from models.DespesaTemp import DespesaTemp
 from models.DespesaMensal import DespesaMensal
@@ -56,3 +57,7 @@ ArgParseTest().test()
 print("\nTesting DespesaMensalProcessor\n")
 
 DespesaMensalProcessorTest(month).test()
+
+print("\nTesting DespesaAnualProcessor\n")
+
+DespesaAnualProcessorTest(month).test()
