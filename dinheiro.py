@@ -47,8 +47,8 @@ def calculateDespesaTotal(despesasChild):
     totalVal = 0.0
     totalPaidVal = 0.0
     for d in despesasChild:
-        totalVal += d.despesa.val
-        totalPaidVal += d.despesa.paidVal
+        totalVal += d.despesa.val or 0.0
+        totalPaidVal += d.despesa.paidVal or 0.0
 
     return Despesa(desc = 'Total', val = totalVal, paidVal = totalPaidVal)
 
